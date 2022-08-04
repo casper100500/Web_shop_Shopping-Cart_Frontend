@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 
-import './Auth.css';
-import AuthContext from '../context/auth-context'
+import LogInContext from '../context/auth-context'
 
-class AuthPage extends Component {
-  state = {
-    isLogin: true
-  };
+class LogInPage extends Component {
 
-  //add method to the class AuthPage
+  //add method to the class LogInPage
   //The same as switchModeHandler and etc functions but taken from another file
-  static contextType = AuthContext
+  static contextType = LogInContext
 
 
   //waiting for a changes in email & password elements
@@ -18,14 +14,8 @@ class AuthPage extends Component {
     super(props);
     this.emailEl = React.createRef();
     this.passwordEl = React.createRef();
-
   }
 
-  switchModeHandler = () => {
-    this.setState(prevState => {
-      return { isLogin: !prevState.isLogin };
-    });
-  };
 
   submitHandler = event => {
     event.preventDefault(); //to be sure no request get send
@@ -49,18 +39,6 @@ class AuthPage extends Component {
       `
     };
 
-    if (!this.state.isLogin) {
-      requestBody = {
-        query: `
-          mutation {
-            createUser(userInput: {email: "${email}", password: "${password}"}) {
-              _id
-              email
-            }
-          }
-        `
-      };
-    }
     console.log(requestBody)
 
     //can be use axios and other API library
@@ -82,10 +60,13 @@ class AuthPage extends Component {
         if (resData.data.login.token) {
           //this.context.token=resData.data.login.token
           // this.context.userId=resData.data.login.userId
-
+          //console.log('email...')
+          //console.log(email)
+          const UserName=email.split("@")[0]
           this.context.login(
             resData.data.login.token,
             resData.data.login.userId,
+            UserName,
             resData.data.login.tokenExpiration)
           //.bind(this)
           //this.context.logout()
@@ -99,7 +80,8 @@ class AuthPage extends Component {
 
   render() {
     return (
-      <form className="auth-form" onSubmit={this.submitHandler}>
+      <React.Fragment>Login:
+      <form className="LogIn-form" onSubmit={this.submitHandler}>
         <div className="form-control">
           <label htmlFor="email">E-Mail</label>
           <input type="email" id="email" ref={this.emailEl} />
@@ -109,14 +91,12 @@ class AuthPage extends Component {
           <input type="password" id="password" ref={this.passwordEl} />
         </div>
         <div className="form-actions">
-          <button type="submit">Submit</button>
-          <button type="button" onClick={this.switchModeHandler}>
-            Switch to {this.state.isLogin ? 'Signup' : 'Login'}
-          </button>
+          <button type="submit">Login</button>
         </div>
       </form>
+      </React.Fragment>
     );
   }
 }
 
-export default AuthPage;
+export default LogInPage;
