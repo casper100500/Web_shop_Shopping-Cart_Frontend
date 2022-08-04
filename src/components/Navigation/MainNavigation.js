@@ -1,5 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom'
+import Dropdown from 'react-bootstrap/Dropdown';
+//import DropdownButton from 'react-bootstrap/DropdownButton';
 import AuthContext from '../../context/auth-context'
 import './MainNavigation.css'
 const mainNavigation = props => {
@@ -7,32 +9,36 @@ const mainNavigation = props => {
         <AuthContext.Consumer>
             {(context) => {
                 return (
+
                     <header className='main-navigation'>
+
+
                         <div className="main-navigation__logo">
-                            <h1>EasyEvent</h1>
+                            <h1>Shopping cart by NG</h1>
 
                         </div>
-                        <nav className="main-navigation__items">
-                            <ul>
-                                {!context.token &&
-                                    <li><NavLink to="/auth">Authenticate</NavLink></li>
-                                }
 
-                                <li><NavLink to="/events">Events</NavLink></li>
+                    
+                        <Dropdown>
+                            <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                User
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                                <Dropdown.Item href="/auth">Sign UP</Dropdown.Item>
+                                <Dropdown.Item href="/auth">Sigh In</Dropdown.Item>
+
                                 {context.token &&
-                                    <React.Fragment>
-                                        <li><NavLink to="/bookings">Bookings</NavLink></li>
+ 
+                                        <Dropdown.Item href="{context.logout}">Logout</Dropdown.Item>
 
-                                        <li>
-                                            <button onClick={context.logout}>Logout</button>
-                                        </li>
-                                    </React.Fragment>
                                 }
 
 
 
-                            </ul>
-                        </nav>
+
+                            </Dropdown.Menu>
+                        </Dropdown>
                     </header>
                 )
             }}

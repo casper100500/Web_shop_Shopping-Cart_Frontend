@@ -6,8 +6,7 @@ import './App.css';
 import { BrowserRouter, Route, Navigate, Routes } from 'react-router-dom'
 import React, { Component } from 'react';
 import AuthPage from './pages/Auth'
-import BookingsPage from './pages/Bookings'
-import EventsPage from './pages/Events'
+import ProductsPage from './pages/ProductsPage';
 
 import MainNavigation from './components/Navigation/MainNavigation'
 import AuthContext from './context/auth-context'
@@ -45,6 +44,13 @@ render() {
 
     <BrowserRouter>
       <React.Fragment>
+      <link
+                            rel="stylesheet"
+                            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+                            integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+                            crossorigin="anonymous"
+                        />
+
         <AuthContext.Provider
           value={{
             token: this.state.token,
@@ -56,16 +62,12 @@ render() {
           <main className="main-content">
             <Routes>
               
-              {this.state.token && <Route path="/" element={<Navigate to="/events" />} />}
-              {this.state.token && <Route path="/auth" element={<Navigate to="/events" />} />}
-              
-              {!this.state.token && <Route path="/auth" element={<AuthPage />} />}
-              
-              <Route path="/events" element={<EventsPage />} />
-           
-              {this.state.token && <Route path="/bookings" element={<BookingsPage />} />}
-
-              {!this.state.token && <Route path="/" element={<Navigate to="/auth" />} />}
+            
+            
+            {<Route path="/" element={<ProductsPage />} />}  
+            {this.state.token && <Route path="/auth" element={<Navigate to="/" />} />}
+            {!this.state.token && <Route path="/auth" element={<AuthPage />} />}
+            
             </Routes>
           </main>
         </AuthContext.Provider>
@@ -75,5 +77,6 @@ render() {
   );
 }
 }
-
+//
+//{!this.state.token && <Route path="/" element={<Navigate to="/auth" />} />}
 export default App;
