@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 //import './SignUP.css';
 import SignUPContext from '../context/auth-context'
+//import { withAlert } from 'react-alert'
+import  withRouter from "../components/withRouter";
+//import { useNavigate } from "react-router-dom";
 
 class SignUPPage extends Component {
 
@@ -41,7 +44,7 @@ class SignUPPage extends Component {
       };
     
     console.log(requestBody)
-    const navigate = useNavigate();
+    //let navigate = useNavigate(); 
     //can be use axios and other API library
     fetch('http://localhost:5000/graphql', {
       method: 'POST',
@@ -59,9 +62,17 @@ class SignUPPage extends Component {
       .then(resData => {
         console.log('created.......')
         console.log(resData);
-        //return 
-       
-        navigate("/login");
+        if (resData.errors!==undefined)
+        {
+        console.log(resData.errors[0].message)
+        alert.error(resData.errors[0].message, { timeout: 5000 })
+        }
+        else
+        {
+          alert.success(`User ${email} was created. Please Login...`, { timeout: 5000 })
+          this.props.navigate("/login");
+        }
+
 
       })
       .catch(err => {
@@ -90,4 +101,6 @@ class SignUPPage extends Component {
   }
 }
 
-export default SignUPPage;
+
+export default withRouter(SignUPPage)
+//export default SignUPPage;
