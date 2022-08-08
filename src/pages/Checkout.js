@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 
-class ProductsPage extends Component {
+class CheckoutPage extends Component {
  
 
  
   render() {
     return (
       <React.Fragment>
-        Products
+        Checkout
       </React.Fragment>
     );
   }
 }
 
-export default ProductsPage;
+export default CheckoutPage;

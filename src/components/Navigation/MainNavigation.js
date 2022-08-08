@@ -2,10 +2,19 @@ import React from 'react';
 //import { NavLink } from 'react-router-dom'
 import Dropdown from 'react-bootstrap/Dropdown';
 //import DropdownButton from 'react-bootstrap/DropdownButton';
-import Button from 'react-bootstrap/Button';
+//import Button from 'react-bootstrap/Button';
 import AuthContext from '../../context/auth-context'
+import { Link } from 'react-router-dom';
 import './MainNavigation.css'
+
+//import { useNavigate } from "react-router-dom";
+ 
 const mainNavigation = props => {
+    
+ 
+    
+
+
     return (
         <AuthContext.Consumer>
             {(context) => {
@@ -15,10 +24,9 @@ const mainNavigation = props => {
 
 
                         <div className="main-navigation__logo">
-                            <h1>Shopping cart by NG</h1>
+                        <Link to="/"><h1>Shopping cart by NG</h1></Link>
                         </div>
-                        <Button href="/" variant="primary" >Primary</Button>{' '}
-
+          
 
                         <Dropdown>
                             <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -29,14 +37,18 @@ const mainNavigation = props => {
                             <Dropdown.Menu>
                                 {!context.token &&
                                     <React.Fragment>
-                                        <Dropdown.Item href="/signup">Sign UP</Dropdown.Item>
-                                        <Dropdown.Item href="/login">Sigh In</Dropdown.Item>
+                                        
+                                       
+                                        <Dropdown.Item as={Link} to="/signup">Sign UP</Dropdown.Item>
+                                        
+                                        <Dropdown.Item as={Link} to="/login">Sigh In</Dropdown.Item>
+                                        
                                     </React.Fragment>
                                 }
                                 {context.token &&
                                     <React.Fragment>
-                                        <Dropdown.Item href="/">Profile</Dropdown.Item>
-                                        <Dropdown.Item href="{context.logout}">Logout</Dropdown.Item>
+                                        <Dropdown.Item as={Link} to="/">Profile</Dropdown.Item>
+                                        <Dropdown.Item onClick={context.logout}>Logout</Dropdown.Item>
                                     </React.Fragment>
 
                                 }
