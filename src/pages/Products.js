@@ -1,55 +1,116 @@
-import React from 'react';
-import { Link, useNavigate  } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button';
-//import LogInContext from '../context/auth-context'
-import { useAlert } from 'react-alert'
+import ProductList from '../components/product/ProductList';
+//<Button onClick={newURL} variant="primary" >Navigate</Button>
+function ProductsPage() {
 
-function ProductsPage()  {
-  alert = useAlert()
-  //let contextType = LogInContext
+  const ProductNull = {
+    id: null,
+    title: null,
+    description: null,
+    price: null
+  }
 
-  let navigate = useNavigate(); 
-  //add method to the class ProductsPage
-  //The same as switchModeHandler and etc functions but taken from another file
- // static contextType = LogInContext
+  const [Products, setProducts] = useState();
 
+  const LoadProducts = () => {
+    //    products(findStr:"{'title':'Mortal Kombat'}"){
 
+    let requestBody = {
+      query: `
+      query{
+        products(findStr:"{}"){
+          _id,
+          title,
+          description,
+          price,
+          imagePath
+        }
+      }
+      `
+    };
 
+    console.log(requestBody)
 
-  const newURL = event => {
-    //event.preventDefault();
-    //window.location.href='/checkout'
-    // event.preventDefault(); //to be sure no request get send
-    console.log('newURL...')
-    const path='/checkout'
-   // navigate(path);
+    let { env } = require('../nodemon.json')
 
+    //can be use axios and other API library
+    fetch(env.backendGraphQL, {
+      method: 'POST',
+      body: JSON.stringify(requestBody),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => {
+        if (res.status !== 200 && res.status !== 201) {
+          alert.error(`Error`, { timeout: 5000 })
+          throw new Error('Failed!');
+        }
+        return res.json();
+      })
+      .then(resData => {
+        console.log(resData.data.products)
 
-    alert.show('Oh look, an alert!')
+        setProducts(resData.data.products)
 
-    //this.context.logout()
-   // this.context.navigateToUrl()
-   //push('/')
+        // resData.data.products.map(Itm => {
+        //   console.log(Itm)
+        //   setProducts(Itm)
+        // })
 
-
-  };
-
- 
-    return (
-      <React.Fragment>
-        Products
-
-        <Button onClick={newURL} variant="primary" >Navigate</Button>
-
-        <Link to="/checkout">
-          <Button variant="primary">
-            Click Me!
-          </Button>
-        </Link>
-
-      </React.Fragment>
-    );
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
 
+  // Products.map(Itm => {
+  //   return (
+  //     <li key={Itm._id} className="events__list-item">
+  //       <ul>title:{Itm.title}</ul>
+  //       <ul>price:{Itm.price}</ul>
+  //       <ul></ul>
+  //       <ul>
+
+  //      <button className="btn" onClick={event => this.startEventDetailHandler(Itm)}>
+  //           View Details
+  //      </button>
+  //      </ul>
+  //     </li>
+  //   );
+  // })
+
+  return (
+
+    <React.Fragment>
+      Products
+
+
+
+      <Link to="/checkout">
+        <Button variant="primary">
+          Click Me!
+        </Button>
+      </Link>
+      <ul></ul>
+      <ul>
+        <Button onClick={LoadProducts} variant="primary">
+          Load Products...
+        </Button>
+      </ul>
+      <div>Products:</div>
+
+      {Products &&
+        <ProductList Products={Products}/>
+      }
+      
+
+    </React.Fragment>
+  );
+}
+
+// {Products.title}
 export default ProductsPage;

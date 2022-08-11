@@ -1,0 +1,7 @@
+{
+    "env": {
+        "backendGraphQL": "http://localhost:5000/graphql",
+        "backendURL": "http://localhost:5000",
+        "backendPort": "5000"
+    }
+}

@@ -11,7 +11,7 @@ import ProductsPage from './pages/Products';
 import CheckoutPage from './pages/Checkout';
 import AuthContext from './context/auth-context'
 import MainNavigation from './components/Navigation/MainNavigation'
-import Session_refresh from './components/Session/Session_refresh'
+import TabRefresh from './components/Session/TabRefresh'
 
 //  <Navigate from="/" to="/auth" exact/> 
 
@@ -85,7 +85,7 @@ class App extends Component {
           }} >
           <React.Fragment>
 
-            <Session_refresh />
+            <TabRefresh />
 
             <MainNavigation />
             

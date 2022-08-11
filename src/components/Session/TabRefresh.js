@@ -4,16 +4,16 @@ import AuthContext from '../../context/auth-context'
 
 
 
-const Session_refresh = props => {
+const TabRefresh = props => {
 
   // const [userName, setUserName] = useState('');
-  const Auth = React.useContext(AuthContext);
+  const Auth = React.useContext(AuthContext); //to call login function
 
   useEffect(() => {
     // Access count value from session storage
 
     //ReLogin
-    if (1 === 1) {
+    if (1 === 1) {//=>ON/OFF
       if (sessionStorage.getItem("UserLogin") !== undefined) {
         const UserLogin = JSON.parse(sessionStorage.getItem("UserLogin"))
         console.log("sessionStorage.getItem:")
@@ -38,4 +38,4 @@ const Session_refresh = props => {
 }
 
 
-export default Session_refresh
+export default TabRefresh

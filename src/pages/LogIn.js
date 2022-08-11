@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-
 import LogInContext from '../context/auth-context'
 import { withAlert } from 'react-alert'
+
 
 class LogInPage extends Component {
   // static alert = useAlert()
@@ -42,9 +42,11 @@ class LogInPage extends Component {
     };
 
     console.log(requestBody)
-
+        
+    let {env}= require('../nodemon.json')
+    
     //can be use axios and other API library
-    fetch('http://localhost:5000/graphql', {
+    fetch(env.backendGraphQL, {
       method: 'POST',
       body: JSON.stringify(requestBody),
       headers: {
