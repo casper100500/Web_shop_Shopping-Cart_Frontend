@@ -55,6 +55,7 @@ class LogInPage extends Component {
     })
       .then(res => {
         if (res.status !== 200 && res.status !== 201 ) {
+          const alert =this.props.alert
           alert.error(`login or password is incorrect! Try again.`, { timeout: 5000 })
           throw new Error('Failed!');
         }
@@ -83,7 +84,7 @@ class LogInPage extends Component {
         // }
 
         //   sessionStorage.setItem("UserLogin", UserLogin);
-
+         const alert =this.props.alert
           alert.success(`I've been logged in as ${UserName}`, {
             timeout: 5000, // custom timeout just for this one alert
             onOpen: () => {
@@ -130,4 +131,4 @@ class LogInPage extends Component {
   }
 }
 
-export default LogInPage;
+export default withAlert()(LogInPage);

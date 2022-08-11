@@ -4,6 +4,7 @@ import './App.css';
 //Redirect->Navigate
 
 import { BrowserRouter, Route, Navigate, Routes } from 'react-router-dom'
+import { withAlert } from 'react-alert'
 import React, { Component } from 'react';
 import LogInPage from './pages/LogIn'
 import SignUPPage from './pages/SignUP';
@@ -114,4 +115,4 @@ class App extends Component {
 //{this.state.token && <Route path="/auth" element={<Navigate to="/" />} />}
 //{!this.state.token && <Route path="/auth" element={<AuthPage />} />}
 //{!this.state.token && <Route path="/" element={<Navigate to="/auth" />} />}
-export default App;
+export default withAlert(App);

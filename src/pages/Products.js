@@ -104,7 +104,21 @@ function ProductsPage() {
       <div>Products:</div>
 
       {Products &&
-        <ProductList Products={Products}/>
+
+<table className="table">
+<thead>
+  <tr>
+    <th></th>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Price</th>
+    <th></th>
+  </tr>
+</thead>
+<tbody><ProductList Products={Products}/></tbody>
+</table>
+
+        
       }
       
 

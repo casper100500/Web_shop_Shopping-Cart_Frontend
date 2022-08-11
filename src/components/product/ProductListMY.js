@@ -18,6 +18,14 @@ const ProductList = props => {
 
       return (
 
+        newRow ?
+          <React.Fragment>
+            {i} New Row
+            <div class="row">
+            <ProductItm product={product} />
+            </div>
+          </React.Fragment>
+          :
           <React.Fragment>
             <ProductItm product={product} />
           </React.Fragment>
