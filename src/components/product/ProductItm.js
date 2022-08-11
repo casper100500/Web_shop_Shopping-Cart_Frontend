@@ -9,8 +9,9 @@ const ProductItm = (props) => {
       <tr key={props.product.id}>
         <td>
           <img width="150" height="150" src={props.product.imagePath} alt="..." class="img-responsive" />
+          <center>{props.product.title}</center>
         </td>
-        <td width="150">{props.product.title}</td>
+
         <td>{props.product.description}</td>
         <td width="150">€{props.product.price} EUR</td>
         <td>

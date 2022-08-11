@@ -1,18 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button';
 import ProductList from '../components/product/ProductList';
+import Spinner from '../components/Spinner/Spinner';
 //<Button onClick={newURL} variant="primary" >Navigate</Button>
 function ProductsPage() {
-
-  const ProductNull = {
-    id: null,
-    title: null,
-    description: null,
-    price: null
-  }
+  //var isLoaded=false
 
   const [Products, setProducts] = useState();
+  const [isLoading, setLoaded] = useState(true);
+
+  useEffect(() => {
+    setTimeout(function () {
+      if (isLoading===true){LoadProducts()}
+      setLoaded(false)
+    }, 500)
+
+
+  });
 
   const LoadProducts = () => {
     //    products(findStr:"{'title':'Mortal Kombat'}"){
@@ -86,41 +91,36 @@ function ProductsPage() {
   return (
 
     <React.Fragment>
-      Products
 
 
 
-      <Link to="/checkout">
-        <Button variant="primary">
-          Click Me!
-        </Button>
-      </Link>
-      <ul></ul>
-      <ul>
-        <Button onClick={LoadProducts} variant="primary">
-          Load Products...
-        </Button>
-      </ul>
+
+
       <div>Products:</div>
 
+
+      {isLoading && <Spinner />}
       {Products &&
+        <table className="table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Description</th>
+              <th>Price</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
 
-<table className="table">
-<thead>
-  <tr>
-    <th></th>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Price</th>
-    <th></th>
-  </tr>
-</thead>
-<tbody><ProductList Products={Products}/></tbody>
-</table>
 
-        
+
+            <ProductList Products={Products} />
+          </tbody>
+        </table>
       }
-      
+
+
+
 
     </React.Fragment>
   );

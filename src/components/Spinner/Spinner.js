@@ -5,6 +5,7 @@ import './Spinner.css';
 const spinner = () => (
   <div className="spinner">
     <div className="lds-dual-ring" />
+    Loading...
   </div>
 );
 
