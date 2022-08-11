@@ -68,9 +68,19 @@ class LogInPage extends Component {
 
 
 
+          
 
           const UserName = email.split("@")[0]
 
+        //   //save user in session
+        //   const UserLogin=  {
+        //   token:resData.data.login.token,
+        //   userId:resData.data.login.userId,
+        //   userName:UserName,
+        //   tokenExpiration:resData.data.login.tokenExpiration
+        // }
+
+        //   sessionStorage.setItem("UserLogin", UserLogin);
 
           alert.success(`I've been logged in as ${UserName}`, {
             timeout: 5000, // custom timeout just for this one alert

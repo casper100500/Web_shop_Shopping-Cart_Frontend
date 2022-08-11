@@ -11,7 +11,7 @@ import ProductsPage from './pages/Products';
 import CheckoutPage from './pages/Checkout';
 import AuthContext from './context/auth-context'
 import MainNavigation from './components/Navigation/MainNavigation'
-
+import Session_refresh from './components/Session/Session_refresh'
 
 //  <Navigate from="/" to="/auth" exact/> 
 
@@ -38,11 +38,21 @@ class App extends Component {
   };
 
   login = (token, userId, userName, tokenExpiration) => {
-    //this.state.setState({})
-    // this.state.token=token
-    // this.state.userId=userId
+
+
+    // if (sessionStorage.getItem("UserLogin")===undefined)
+    // {
+    
+
+    //}
+    console.log(`Logged1: ${userName}`)
     this.setState({ token: token, userName: userName, userId: userId }, () => {
-      console.log(`Logged: ${userName}`)
+      console.log(`Logged2: ${userName}`)
+      const UserLogin={ token: token, userName: userName, userId: userId, tokenExpiration:tokenExpiration }
+      sessionStorage.setItem("UserLogin", JSON.stringify(UserLogin));
+      //sessionStorage.setItem("UserLogin", UserLogin);
+      console.log(UserLogin)
+        
       //console.log(`Logged: ${userId}\ntoken:${token}`)
       // console.log(`state token: ${this.state.token}`)
     })
@@ -51,13 +61,15 @@ class App extends Component {
 
   logout = () => {
     this.setState({ token: null, userId: null, userName: null })
+    sessionStorage.setItem("UserLogin", null);
     console.log('logout!!!!!!!!!!!!!!!!!!')
     //console.log(`state token: ${this.state.token}`)
 
     //this.state.token=null
     //this.state.userId=null
   }
-
+//<Session_refresh />
+  
   render() {
     return (
 
@@ -73,9 +85,10 @@ class App extends Component {
           }} >
           <React.Fragment>
 
-
+            <Session_refresh />
 
             <MainNavigation />
+            
             <main className="main-content">
               <Routes>
 

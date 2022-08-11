@@ -5,7 +5,6 @@ export default React.createContext({
     userId:null,
     userName:null,
     login: (token, userId, userName, tokenExpiration)=>{},
-    logout: ()=>{},
-    navigateToUrl: (url)=>{}
+    logout: ()=>{}
 
 });
