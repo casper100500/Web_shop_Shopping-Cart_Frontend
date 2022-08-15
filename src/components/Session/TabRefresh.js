@@ -11,9 +11,11 @@ const TabRefresh = props => {
 
   useEffect(() => {
     // Access count value from session storage
+    Auth.setCartItmCount()
 
     //ReLogin
     if (1 === 1) {//=>ON/OFF
+
       if (sessionStorage.getItem("UserLogin") !== undefined) {
         const UserLogin = JSON.parse(sessionStorage.getItem("UserLogin"))
         console.log("sessionStorage.getItem:")

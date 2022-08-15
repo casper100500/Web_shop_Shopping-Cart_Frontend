@@ -4,10 +4,11 @@ import Button from 'react-bootstrap/Button';
 import Spinner from '../components/Spinner/Spinner';
 import ProductDetails from '../components/Products/ProductShow/ProductDetails'
 import { useParams } from 'react-router-dom'
+import { useAlert  } from 'react-alert'
 //<Button onClick={newURL} variant="primary" >Navigate</Button>
 function ProductShow() {
   //var isLoaded=false
-
+  const alert =useAlert()
   const [Product, setProduct] = useState();
   const [isLoadingProductShow, setLoaded] = useState(true);
   const { ProductId } = useParams()
@@ -23,11 +24,12 @@ function ProductShow() {
 
   const LoadProduct = () => {
     //    Product(findStr:"{'title':'Mortal Kombat'}"){
+      //products(ObjectId:"${ProductId}"){
     //{'_id':'62eb91623ea009cf5d8e2a02'}
     let requestBody = {
       query: `
       query{
-        products(ObjectId:"${ProductId}"){
+        products(findStr:"{'_id':'${ProductId}'}"){
           _id,
           title,
           price,
@@ -52,7 +54,9 @@ function ProductShow() {
     })
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
-          //alert.error(`Error`, { timeout: 5000 })
+          
+          
+          alert.error(`Error something went wrong`, { timeout: 3000 })
           throw new Error('Failed!');
         }
         return res.json();

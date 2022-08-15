@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
-import Button from 'react-bootstrap/Button';
+
 import ProductList from '../components/Products/ProductList';
 import Spinner from '../components/Spinner/Spinner';
-//<Button onClick={newURL} variant="primary" >Navigate</Button>
 
 
-
-function ProductsPage() {
-  //var isLoaded=false
+function ProductsPage(props) {
 
   const [Products, setProducts] = useState();
  
@@ -64,31 +60,20 @@ function ProductsPage() {
         console.log(resData.data.products)
 
         setProducts(resData.data.products)
-
-        // resData.data.products.map(Itm => {
-        //   console.log(Itm)
-        //   setProducts(Itm)
-        // })
-
       })
       .catch(err => {
         console.log(err);
       });
   }
 
-  return (
 
+            return (
     <React.Fragment>
-
-
-
-
-
-      <div>Products:</div>
-
+      Products:
 
       {isLoading && <Spinner />}
       {Products &&
+      
         <table className="table">
           <thead>
             <tr>
@@ -103,12 +88,12 @@ function ProductsPage() {
         </table>
       }
 
-
-
-
     </React.Fragment>
-  );
+  )
+
+
 }
+
 
 // {Products.title}
 export default ProductsPage;

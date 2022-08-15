@@ -1,15 +1,13 @@
 import React from 'react';
 //import ProductItm from './ProductItm';
 import ProductRow from './ProductRow';
-
 const ProductList = props => {
   console.log('ProductList')
   console.log(props)
 
-  var i = 0
+
   var rowNumber = 0
-  const Step = 3
-  var newRow = false
+
   var docs = props.Products
   var productChunks = [];
   var product3 = [];
@@ -26,7 +24,7 @@ const ProductList = props => {
     
 
   }
-
+//<div key={props.Products[0]._id}></div>
   return (
     <React.Fragment>
       <tr>
@@ -36,6 +34,7 @@ const ProductList = props => {
           rowNumber++
           return (
             <React.Fragment>  
+              
               <ProductRow row={row} rowNumber={rowNumber} />
             </React.Fragment>
           )

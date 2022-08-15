@@ -31,13 +31,13 @@ root.render(
  
 
 
-  <React.StrictMode>
  <AlertProvider template={AlertTemplate} {...options}>
 <App />
 
 </AlertProvider>        
     
-  </React.StrictMode>
 );
 
+//<React.StrictMode>
+//</React.StrictMode>
 

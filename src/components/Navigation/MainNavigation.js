@@ -1,8 +1,9 @@
 import React from "react";
+import Button from 'react-bootstrap/Button';
+import * as Icon from "react-bootstrap-icons";
 //import { NavLink } from 'react-router-dom'
 import Dropdown from 'react-bootstrap/Dropdown';
 //import DropdownButton from 'react-bootstrap/DropdownButton';
-import Button from 'react-bootstrap/Button';
 import AuthContext from '../../context/auth-context'
 import { Link } from 'react-router-dom';
 import './MainNavigation.css'
@@ -11,7 +12,7 @@ import './MainNavigation.css'
 
 
 
-const mainNavigation = props => {
+function mainNavigation(props) {
 
 
 
@@ -21,19 +22,6 @@ const mainNavigation = props => {
                 return (
 
                     <header className='main-navigation'>
-
-
-                        <div className="main-navigation__logo">
-                            <Link to="/"><h1>Shopping cart by NG</h1></Link>
-                        </div>
-
-                        <Link to="/checkout">
-                            <Button variant="primary">
-                                Checkout
-                            </Button>
-                        </Link>
-
-
                         <Dropdown>
                             <Dropdown.Toggle variant="success" id="dropdown-basic">
                                 {!context.token && <React.Fragment>User</React.Fragment>}
@@ -64,11 +52,30 @@ const mainNavigation = props => {
 
                             </Dropdown.Menu>
                         </Dropdown>
+
+                        <div className="main-navigation__logo">
+                            <Link to="/"><h1>Shopping cart by NG</h1></Link>
+                        </div>
+
+
+                        <Link to="/cart" >
+                            <Button variant="primary" aria-label="add to shopping cart">
+                                {context.CartItmCount===0 ? <Icon.Cart size={20} /> 
+                                : <Icon.CartFill size={20} />}
+                                
+                                {' '} Cart {context.CartItmCount}
+                            </Button>
+                        </Link>
+                            <Button onClick={context.setCartItmCountNull} variant="primary" aria-label="add to shopping cart">
+                                <Icon.Cart size={20} /> Clear Cart
+                            </Button>
+
+
+
                     </header>
                 )
-            }}
-        </AuthContext.Consumer>
-    );
+            
+            }}</AuthContext.Consumer>);
 }
 
 export default mainNavigation

@@ -10,7 +10,7 @@ import React, { Component } from 'react';
 import LogInPage from './pages/LogIn'
 import SignUPPage from './pages/SignUP';
 import ProductsPage from './pages/Products';
-import CheckoutPage from './pages/Checkout';
+import CartListPage from './pages/CartListPage';
 import AuthContext from './context/auth-context'
 import MainNavigation from './components/Navigation/MainNavigation'
 import TabRefresh from './components/Session/TabRefresh'
@@ -20,42 +20,28 @@ import ProductShowPage from './pages/ProductShow'
 
 //function App() {
 class App extends Component {
-  
+
 
   state = {
     token: null,
     userName: null,
-    userId: null
+    userId: null,
+    CartItmCount: 0
   }
-  
-  navigateToUrl = (url) => {
-    //const navigate = useNavigate();
-    // navigate to /contacts
-  //  navigate('/checkout');
-  //const navigate = Route();
-  const path='/checkout'
-  console.log(`url: ${path}`)
-  //navigate=path;
-  //this.props.history.push(path);
-    console.log('navigateToUrl!!!')
-  };
+
 
   login = (token, userId, userName, tokenExpiration) => {
 
 
-    // if (sessionStorage.getItem("UserLogin")===undefined)
-    // {
-    
 
-    //}
     console.log(`Logged1: ${userName}`)
     this.setState({ token: token, userName: userName, userId: userId }, () => {
       console.log(`Logged2: ${userName}`)
-      const UserLogin={ token: token, userName: userName, userId: userId, tokenExpiration:tokenExpiration }
+      const UserLogin = { token: token, userName: userName, userId: userId, tokenExpiration: tokenExpiration }
       sessionStorage.setItem("UserLogin", JSON.stringify(UserLogin));
       //sessionStorage.setItem("UserLogin", UserLogin);
       console.log(UserLogin)
-        
+
       //console.log(`Logged: ${userId}\ntoken:${token}`)
       // console.log(`state token: ${this.state.token}`)
     })
@@ -71,37 +57,70 @@ class App extends Component {
     //this.state.token=null
     //this.state.userId=null
   }
-//<Session_refresh />
-  
+
+  setCartItmCount = () => {
+    console.log('setCartItmCount')
+    var cart = {
+      Items: [],
+      totalQty: 0,
+      totalPrice: 0
+    }
+
+    if (sessionStorage.getItem("Cart") !== null) {
+      console.log(sessionStorage.getItem("Cart"))
+      console.log(cart)
+      //JSON.parse(
+      cart = JSON.parse(sessionStorage.getItem("Cart"))
+    }
+
+    this.setState({ CartItmCount: cart.totalQty })
+  }
+
+  setCartItmCountNull = () => {
+    console.log('setCartItmCountNull')
+    var cart = {
+      Items: [],
+      totalQty: 0,
+      totalPrice: 0
+    }
+    sessionStorage.setItem("Cart", JSON.stringify(cart))
+
+    this.setState({ CartItmCount: 0 })
+  }
+
   render() {
     return (
 
       <BrowserRouter>
+
         <AuthContext.Provider
           value={{
-            navigateToUrl:this.navigateToUrl,
             token: this.state.token,
             userId: this.state.userId,
             userName: this.state.userName,
             login: this.login, //.bind(this)
-            logout: this.logout
+            logout: this.logout,
+            setCartItmCount: this.setCartItmCount,
+            setCartItmCountNull: this.setCartItmCountNull,
+            CartItmCount: this.state.CartItmCount
           }} >
+
           <React.Fragment>
 
             <TabRefresh />
 
             <MainNavigation />
-            
+
             <main className="main-content">
               <Routes>
 
                 <Route path="/" element={<ProductsPage />} />
-                <Route path="/checkout" element={<CheckoutPage />} />
+                <Route path="/cart" element={<CartListPage />} />
                 {!this.state.token && <Route path="/login" element={<LogInPage />} />}
                 {this.state.token && <Route path="/login" element={<Navigate to="/" />} />}
                 {!this.state.token && <Route path="/signup" element={<SignUPPage />} />}
                 <Route path="ProductShow/:ProductId" element={<ProductShowPage />} />
-               
+
               </Routes>
             </main>
 
