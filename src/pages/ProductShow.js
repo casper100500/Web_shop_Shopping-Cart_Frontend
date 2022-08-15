@@ -1,40 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button';
-import ProductList from '../components/Products/ProductList';
 import Spinner from '../components/Spinner/Spinner';
+import ProductDetails from '../components/Products/ProductShow/ProductDetails'
+import { useParams } from 'react-router-dom'
 //<Button onClick={newURL} variant="primary" >Navigate</Button>
-
-
-
-function ProductsPage() {
+function ProductShow() {
   //var isLoaded=false
 
-  const [Products, setProducts] = useState();
- 
-  const [isLoading, setLoaded] = useState(true);
+  const [Product, setProduct] = useState();
+  const [isLoadingProductShow, setLoaded] = useState(true);
+  const { ProductId } = useParams()
 
   useEffect(() => {
     setTimeout(function () {
-      if (isLoading===true){LoadProducts()}
+      if (isLoadingProductShow === true) { LoadProduct() }
       setLoaded(false)
     }, 500)
 
 
   });
 
-
-
-  const LoadProducts = () => {
-    //    products(findStr:"{'title':'Mortal Kombat'}"){
-
+  const LoadProduct = () => {
+    //    Product(findStr:"{'title':'Mortal Kombat'}"){
+    //{'_id':'62eb91623ea009cf5d8e2a02'}
     let requestBody = {
       query: `
       query{
-        products(findStr:"{}"){
+        products(ObjectId:"${ProductId}"){
           _id,
           title,
           price,
+          description,
           imagePath
         }
       }
@@ -55,20 +52,15 @@ function ProductsPage() {
     })
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
-          alert.error(`Error`, { timeout: 5000 })
+          //alert.error(`Error`, { timeout: 5000 })
           throw new Error('Failed!');
         }
         return res.json();
       })
       .then(resData => {
-        console.log(resData.data.products)
-
-        setProducts(resData.data.products)
-
-        // resData.data.products.map(Itm => {
-        //   console.log(Itm)
-        //   setProducts(Itm)
-        // })
+        console.log('resData:')
+        console.log(resData)
+         setProduct(resData.data.products[0])
 
       })
       .catch(err => {
@@ -76,39 +68,22 @@ function ProductsPage() {
       });
   }
 
+
   return (
 
     <React.Fragment>
-
-
-
-
-
-      <div>Products:</div>
-
-
-      {isLoading && <Spinner />}
-      {Products &&
-        <table className="table">
-          <thead>
-            <tr>
-              <th></th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <ProductList Products={Products} />
-          </tbody>
-
-        </table>
+     
+      {isLoadingProductShow && <Spinner />}
+      {Product &&
+        <ProductDetails product={Product} />
       }
-
-
-
+      <ul></ul>
 
     </React.Fragment>
   );
 }
 
-// {Products.title}
-export default ProductsPage;
+// {Product.title}
+export default ProductShow;
+//<ProductDetails product={Product} />
+// <ProductDetails Product={Product} />

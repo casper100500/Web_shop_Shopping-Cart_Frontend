@@ -4,6 +4,7 @@ import './App.css';
 //Redirect->Navigate
 
 import { BrowserRouter, Route, Navigate, Routes } from 'react-router-dom'
+//import { useParams } from 'react-router-dom'
 //import { withAlert } from 'react-alert'
 import React, { Component } from 'react';
 import LogInPage from './pages/LogIn'
@@ -13,6 +14,7 @@ import CheckoutPage from './pages/Checkout';
 import AuthContext from './context/auth-context'
 import MainNavigation from './components/Navigation/MainNavigation'
 import TabRefresh from './components/Session/TabRefresh'
+import ProductShowPage from './pages/ProductShow'
 
 //  <Navigate from="/" to="/auth" exact/> 
 
@@ -98,7 +100,8 @@ class App extends Component {
                 {!this.state.token && <Route path="/login" element={<LogInPage />} />}
                 {this.state.token && <Route path="/login" element={<Navigate to="/" />} />}
                 {!this.state.token && <Route path="/signup" element={<SignUPPage />} />}
-
+                <Route path="ProductShow/:ProductId" element={<ProductShowPage />} />
+               
               </Routes>
             </main>
 
