@@ -1,3 +1,9 @@
+.search {
+  width: 50%;
+
+}
+
+
 .main-navigation {
   position: fixed;
   left: 0;
@@ -12,10 +18,14 @@
   box-sizing: border-box;
 }
 
-.main-navigation__logo h1 {
+.myspan {
+  margin: 0 5px;
+}
+
+.main-navigation__logo {
+  display: flex;
   margin: 0;
   font-size: 1.5rem;
-  color: #dfcefc;
 }
 
 .main-navigation__items {

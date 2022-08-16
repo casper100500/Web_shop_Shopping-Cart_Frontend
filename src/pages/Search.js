@@ -4,7 +4,7 @@ import ProductList from '../components/Products/ProductList';
 import Spinner from '../components/Spinner/Spinner';
 
 
-function ProductsPage(props) {
+function SearchPage(props) {
 
   const [Products, setProducts] = useState();
 
@@ -22,12 +22,22 @@ function ProductsPage(props) {
 
 
   const LoadProducts = () => {
-
+    //    products(findStr:"{'title':'Mortal Kombat'}"){
+    //users.find({"name": new RegExp('.*' + searchVariable + '.*')})
+    var findStr = ``
+    console.log(sessionStorage.getItem("SearchTXT"))
     
+    if (sessionStorage.getItem("SearchTXT") !== null) {
+      findStr = sessionStorage.getItem("SearchTXT")
+    }
+    console.log('findStr:')
+    console.log(findStr)
+    
+    //findStr:"{}"
     let requestBody = {
       query: `
       query{
-        products(findStr:""){
+        products(findStr:"${findStr}"){
           _id,
           title,
           price,
@@ -69,7 +79,7 @@ function ProductsPage(props) {
 
   return (
     <React.Fragment>
-      Products:
+      Search result:
 
       {isLoading && <Spinner />}
       {Products &&
@@ -96,4 +106,4 @@ function ProductsPage(props) {
 
 
 // {Products.title}
-export default ProductsPage;
+export default SearchPage;

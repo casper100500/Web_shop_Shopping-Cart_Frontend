@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import LogInContext from '../context/auth-context'
 import { withAlert } from 'react-alert'
-
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 class LogInPage extends Component {
   // static alert = useAlert()
@@ -42,9 +44,9 @@ class LogInPage extends Component {
     };
 
     console.log(requestBody)
-        
-    let {env}= require('../nodemon.json')
-    
+
+    let { env } = require('../nodemon.json')
+
     //can be use axios and other API library
     fetch(env.backendGraphQL, {
       method: 'POST',
@@ -54,8 +56,8 @@ class LogInPage extends Component {
       }
     })
       .then(res => {
-        if (res.status !== 200 && res.status !== 201 ) {
-          const alert =this.props.alert
+        if (res.status !== 200 && res.status !== 201) {
+          const alert = this.props.alert
           alert.error(`login or password is incorrect! Try again.`, { timeout: 5000 })
           throw new Error('Failed!');
         }
@@ -71,20 +73,20 @@ class LogInPage extends Component {
 
 
 
-          
+
 
           const UserName = email.split("@")[0]
 
-        //   //save user in session
-        //   const UserLogin=  {
-        //   token:resData.data.login.token,
-        //   userId:resData.data.login.userId,
-        //   userName:UserName,
-        //   tokenExpiration:resData.data.login.tokenExpiration
-        // }
+          //   //save user in session
+          //   const UserLogin=  {
+          //   token:resData.data.login.token,
+          //   userId:resData.data.login.userId,
+          //   userName:UserName,
+          //   tokenExpiration:resData.data.login.tokenExpiration
+          // }
 
-        //   sessionStorage.setItem("UserLogin", UserLogin);
-         const alert =this.props.alert
+          //   sessionStorage.setItem("UserLogin", UserLogin);
+          const alert = this.props.alert
           alert.success(`I've been logged in as ${UserName}`, {
             timeout: 5000, // custom timeout just for this one alert
             onOpen: () => {
@@ -112,20 +114,43 @@ class LogInPage extends Component {
 
   render() {
     return (
-      <React.Fragment>Login:
-        <form className="LogIn-form" onSubmit={this.submitHandler}>
-          <div className="form-control">
-            <label htmlFor="email">E-Mail</label>
-            <input type="email" id="email" ref={this.emailEl} />
-          </div>
-          <div className="form-control">
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password" ref={this.passwordEl} />
-          </div>
-          <div className="form-actions">
-            <button type="submit">Login</button>
-          </div>
-        </form>
+      <React.Fragment>
+        <Form className="LogIn-form" onSubmit={this.submitHandler}>
+
+
+
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Login</Form.Label>
+        <Form.Control type="email" placeholder="Enter email login" ref={this.emailEl} />
+      
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control type="password" placeholder="Password" ref={this.passwordEl} />
+      </Form.Group>
+      
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+
+
+
+
+
+
+
+         
+
+       
+
+
+
+
+
+
+
+        </Form>
       </React.Fragment>
     );
   }

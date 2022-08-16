@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-
+import withRouter from "../components/withRouter";
 import CartList from '../components/Cart/CartList';
 import Spinner from '../components/Spinner/Spinner';
-
+import Button from 'react-bootstrap/Button';
+import * as Icon from "react-bootstrap-icons";
+import AuthContext from '../context/auth-context'
 
 function CartListPage(props) {
 
@@ -10,6 +12,22 @@ function CartListPage(props) {
   const [totalPrice, setTotalPrice] = useState(0);
 
   const [isLoading, setLoaded] = useState(true);
+
+
+  const ClearCartFn = async () => {
+
+
+    console.log(window.location.pathname)
+    // fn()
+    //  this.props.context.setCartItmCountNull()
+    //event.AuthContext.context.setCartItmCountNull()
+    if (window.location.pathname === '/cart') {
+        await props.navigate("/spinner")
+        await props.navigate("/cart")
+    }
+
+}
+
 
   useEffect(() => {
     setTimeout(function () {
@@ -41,7 +59,9 @@ function CartListPage(props) {
     setTotalPrice(cart.totalPrice)
   }
 
-  return (
+  return (  <AuthContext.Consumer>
+    {(context) => {
+      return (
     <React.Fragment>
       Cart List:
 
@@ -51,7 +71,8 @@ function CartListPage(props) {
         <table className="table">
           <thead>
             <tr>
-              <th>Product</th>
+              <th>Id</th>
+              <th><center>Product</center></th>
               <th>Price</th>
               <th>Qty</th>
               <th>Full price</th>
@@ -67,13 +88,23 @@ function CartListPage(props) {
       }
 
      <b> Total Price: ₴{totalPrice}</b>
+     <ul></ul>
+     <Button onClick={
+                            (e) => {
+                                e.preventDefault(e);
+                                context.setCartItmCountNull()
+                                ClearCartFn()
+                            }
 
+                        } variant="primary" aria-label="add to shopping cart">
+                            <Icon.Cart size={20} /> Clear
+                        </Button>
     </React.Fragment>
   )
-
+}}</AuthContext.Consumer >);
 
 }
 
 
 // {Products.title}
-export default CartListPage;
+export default  withRouter(CartListPage);

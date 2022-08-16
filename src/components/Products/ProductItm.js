@@ -23,11 +23,11 @@ const ProductItm = (props) => {
           <React.Fragment>
             <td key={props.product._id} width="250" height="270">
               <center>
-                <Link to={`ProductShow/${props.product._id}`}>
+                <Link to={`/ProductShow/${props.product._id}`}>
                   <img width="150" height="150" src={props.product.imagePath} alt="..." class="img-responsive" />
                 </Link>
                 <div >
-                  <Link to={`ProductShow/${props.product._id}`}>
+                  <Link to={`/ProductShow/${props.product._id}`}>
                     {props.product.title}
                   </Link>
                 </div>

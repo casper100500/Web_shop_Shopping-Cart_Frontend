@@ -6,16 +6,20 @@ import './App.css';
 import { BrowserRouter, Route, Navigate, Routes } from 'react-router-dom'
 //import { useParams } from 'react-router-dom'
 //import { withAlert } from 'react-alert'
+
 import React, { Component } from 'react';
 import LogInPage from './pages/LogIn'
 import SignUPPage from './pages/SignUP';
 import ProductsPage from './pages/Products';
+import SearchPage from './pages/Search';
 import CartListPage from './pages/CartListPage';
 import AuthContext from './context/auth-context'
 import MainNavigation from './components/Navigation/MainNavigation'
+import SpinnerPage from './components/Spinner/Spinner'
+
 import TabRefresh from './components/Session/TabRefresh'
 import ProductShowPage from './pages/ProductShow'
-import { withAlert, useAlert } from 'react-alert'
+import { withAlert } from 'react-alert'
 //  <Navigate from="/" to="/auth" exact/> 
 
 //function App() {
@@ -124,6 +128,9 @@ class App extends Component {
               <Routes>
 
                 <Route path="/" element={<ProductsPage />} />
+                <Route path="/spinner" element={<SpinnerPage />} />
+                
+                <Route path="/search" element={<SearchPage />} />
                 <Route path="/cart" element={<CartListPage />} />
                 {!this.state.token && <Route path="/login" element={<LogInPage />} />}
                 {this.state.token && <Route path="/login" element={<Navigate to="/" />} />}
