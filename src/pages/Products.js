@@ -82,7 +82,7 @@ function ProductsPage(props) {
           </thead>
 
           <tbody>
-            <ProductList Products={Products} />
+            <ProductList Products={Products} wndWidth={window.innerWidth} />
           </tbody>
 
         </table>

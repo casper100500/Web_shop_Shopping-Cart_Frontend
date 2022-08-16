@@ -11,7 +11,7 @@ const TabRefresh = props => {
 
   useEffect(() => {
     // Access count value from session storage
-    Auth.setCartItmCount()
+    Auth.setCartItmCount(true)
 
     //ReLogin
     if (1 === 1) {//=>ON/OFF

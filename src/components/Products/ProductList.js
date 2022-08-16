@@ -11,7 +11,10 @@ const ProductList = props => {
   var docs = props.Products
   var productChunks = [];
   var product3 = [];
-  var chunkSize = 3;
+
+  //var chunkSize = 3;
+  var chunkSize = Math.trunc(props.wndWidth/200)
+  
   //console.log(docs.length) //4
 
 
@@ -24,17 +27,17 @@ const ProductList = props => {
     
 
   }
-//<div key={props.Products[0]._id}></div>
+//<TR> Added automaticly!!!!
   return (
     <React.Fragment>
-      <tr>
+     
+     
 
         {productChunks.map(row => {
-          console.log(row[0]._id+row[0].title)
+          //console.log(row[0]._id+row[0].title)
           rowNumber++
           return (
             <React.Fragment>  
-              
               <ProductRow row={row} rowNumber={rowNumber} />
             </React.Fragment>
           )
@@ -45,7 +48,6 @@ const ProductList = props => {
 
        
 
-      </tr>
 
     </React.Fragment >
   )

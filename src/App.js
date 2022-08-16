@@ -15,7 +15,7 @@ import AuthContext from './context/auth-context'
 import MainNavigation from './components/Navigation/MainNavigation'
 import TabRefresh from './components/Session/TabRefresh'
 import ProductShowPage from './pages/ProductShow'
-
+import { withAlert, useAlert } from 'react-alert'
 //  <Navigate from="/" to="/auth" exact/> 
 
 //function App() {
@@ -58,7 +58,7 @@ class App extends Component {
     //this.state.userId=null
   }
 
-  setCartItmCount = () => {
+  setCartItmCount = (refresh,title) => {
     console.log('setCartItmCount')
     var cart = {
       Items: [],
@@ -71,10 +71,17 @@ class App extends Component {
       console.log(cart)
       //JSON.parse(
       cart = JSON.parse(sessionStorage.getItem("Cart"))
+      if (!refresh) {
+        const alert = this.props.alert
+        alert.show(`${title} - Added to Cart`)
+      //  alert.show(`Added to Cart`)
+      }
     }
 
     this.setState({ CartItmCount: cart.totalQty })
   }
+
+
 
   setCartItmCountNull = () => {
     console.log('setCartItmCountNull')
@@ -84,6 +91,8 @@ class App extends Component {
       totalPrice: 0
     }
     sessionStorage.setItem("Cart", JSON.stringify(cart))
+    const alert = this.props.alert
+    alert.show('Cart is empty!')
 
     this.setState({ CartItmCount: 0 })
   }
@@ -138,4 +147,5 @@ class App extends Component {
 //{!this.state.token && <Route path="/auth" element={<AuthPage />} />}
 //{!this.state.token && <Route path="/" element={<Navigate to="/auth" />} />}
 //export default withAlert(App);
-export default App;
+//export default App;
+export default withAlert()(App);

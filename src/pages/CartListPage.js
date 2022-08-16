@@ -54,7 +54,7 @@ function CartListPage(props) {
               <th>Product</th>
               <th>Price</th>
               <th>Qty</th>
-              <th>Total Price</th>
+              <th>Full price</th>
 
             </tr>
           </thead>

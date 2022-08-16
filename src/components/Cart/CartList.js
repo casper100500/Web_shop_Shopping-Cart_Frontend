@@ -10,7 +10,7 @@ const CartList = props => {
 
 
       <React.Fragment>
-        <tr key={itm.product._id} width="100" height="100">
+        <tr key={itm.product._id} width="100" height="120">
           <center>
             <Link to={`../ProductShow/${itm.product._id}`}>
               <img width="80" height="80" src={itm.product.imagePath} alt="..." class="img-responsive" />

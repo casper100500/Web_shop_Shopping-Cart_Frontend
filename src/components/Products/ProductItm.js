@@ -7,6 +7,9 @@ import * as Icon from "react-bootstrap-icons";
 import AddToCart from './AddToCartFun';
 import AuthContext from '../../context/auth-context';
 
+
+
+
 const ProductItm = (props) => {
   //console.log(props)
   //{props.i} {props.rowNumber}
@@ -18,7 +21,7 @@ const ProductItm = (props) => {
 
         return (
           <React.Fragment>
-            <td key={props.product._id} width="250" height="250">
+            <td key={props.product._id} width="250" height="270">
               <center>
                 <Link to={`ProductShow/${props.product._id}`}>
                   <img width="150" height="150" src={props.product.imagePath} alt="..." class="img-responsive" />

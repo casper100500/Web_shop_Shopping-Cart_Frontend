@@ -14,7 +14,7 @@ const ProductShow = (props) => {
   var shortID = props.product._id
   shortID = shortID.slice(18)
   const Auth = React.useContext(AuthContext); //to call login function
-
+  
 
         return (
           <React.Fragment>
@@ -39,8 +39,7 @@ const ProductShow = (props) => {
               <Button onClick={() => AddToCart(props.product,Auth.setCartItmCount)} variant="primary" aria-label="add to shopping cart">
                 <Icon.CartPlus size={20} /> Add to Cart
               </Button>
-        
-
+ 
 
             </center>
 

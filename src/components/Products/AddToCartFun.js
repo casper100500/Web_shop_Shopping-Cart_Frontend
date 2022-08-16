@@ -1,4 +1,4 @@
-
+  
 const AddToCart = (product, setCartItmCount) => {
 
 
@@ -30,7 +30,8 @@ const AddToCart = (product, setCartItmCount) => {
 
     sessionStorage.setItem("Cart", JSON.stringify(cart));
     //sessionStorage.setItem("Cart",null)
-    setCartItmCount()
+//    setCartItmCount({refresh:false,title:product.title})
+    setCartItmCount(false,product.title)
 
 }
 
