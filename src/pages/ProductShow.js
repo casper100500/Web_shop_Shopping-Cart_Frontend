@@ -36,7 +36,8 @@ function ProductShow() {
     
     getProducts(findStr,1,1,function(res,err)
     {  //setProduct(resData.data.products[0])
-       setProducts(res[0])
+      console.log(res)
+       setProducts(res.Products[0])
        return callback
     }
     )
