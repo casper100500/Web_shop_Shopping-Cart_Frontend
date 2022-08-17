@@ -19,7 +19,7 @@ import withRouter from "../withRouter";
 
 function mainNavigation(props) {
 
-   
+
     const ShowCartPageFn = async (event) => {
         event.preventDefault(event);
         await props.navigate("/spinner")
@@ -31,7 +31,12 @@ function mainNavigation(props) {
         console.log(search.value);
     }
 
+    const ProductsURLFn = async (event) => {
+        event.preventDefault();
+        await props.navigate("/spinner")
+        await props.navigate("/")
 
+    }
 
     const SearchFn = async (event) => {
         event.preventDefault();
@@ -61,15 +66,15 @@ function mainNavigation(props) {
                     <header className='main-navigation'>
 
                         <div className="main-navigation__logo">
-                            
+
 
                             <Dropdown>
                                 <Dropdown.Toggle variant="success" id="dropdown-basic">
                                     {!context.token && <React.Fragment>
-                                        
+
                                         <Icon.Justify size={25} />
-                                        
-                                        </React.Fragment>}
+
+                                    </React.Fragment>}
                                     {context.token && <React.Fragment>{context.userName}</React.Fragment>}
                                 </Dropdown.Toggle>
                                 <span className="myspan"></span>
@@ -95,11 +100,11 @@ function mainNavigation(props) {
                                 </Dropdown.Menu>
                             </Dropdown>
                             <span className="myspan"></span>
-                            <Link to="/">
-                                <img width="45" height="45" src={'https://png2.cleanpng.com/sh/4ceca5363904e42ea8f839e1ff1932ee/L0KzQYm3VsA3N6V0kZH0aYP2gLBuTgNucZ1qkZ9ubXBteX76lPlkc5Z3RdN5cD32hLF5hb02amI8fNNtMELmc7e8Wb4zQGk6TqsAMEG4Qom5WcAxOGE2UKUBLoDxd1==/kisspng-smiley-emoji-sticker-app-store-5b17dad02ccf59.2885695015282900001836.png'} alt="..." class="img-responsive" />
-                            </Link>
-
                             
+                                <img onClick={ProductsURLFn} width="45" height="45" src={'https://png2.cleanpng.com/sh/4ceca5363904e42ea8f839e1ff1932ee/L0KzQYm3VsA3N6V0kZH0aYP2gLBuTgNucZ1qkZ9ubXBteX76lPlkc5Z3RdN5cD32hLF5hb02amI8fNNtMELmc7e8Wb4zQGk6TqsAMEG4Qom5WcAxOGE2UKUBLoDxd1==/kisspng-smiley-emoji-sticker-app-store-5b17dad02ccf59.2885695015282900001836.png'} alt="..." class="img-responsive" />
+                            
+
+
                         </div>
 
                         <div className="search">
@@ -123,18 +128,18 @@ function mainNavigation(props) {
                             </form>
                         </div>
 
-         
-                        
+
+
                         <Button onClick={ShowCartPageFn} variant="primary" aria-label="add to shopping cart">
                             {context.CartItmCount === 0 ? <Icon.Cart size={20} />
                                 : <Icon.CartFill size={20} />}
-                            
+
                             {' '}
-                                <Badge bg="secondary">{context.CartItmCount}</Badge>
-                            
+                            <Badge bg="secondary">{context.CartItmCount}</Badge>
+
 
                         </Button>
-                  
+
 
 
 

@@ -5,71 +5,41 @@ import Spinner from '../components/Spinner/Spinner';
 import ProductDetails from '../components/Products/ProductShow/ProductDetails'
 import { useParams } from 'react-router-dom'
 import { useAlert  } from 'react-alert'
+
+import getProducts from './getProductsFn'
+
 //<Button onClick={newURL} variant="primary" >Navigate</Button>
 function ProductShow() {
   //var isLoaded=false
   const alert =useAlert()
-  const [Product, setProduct] = useState();
+  const [Product, setProducts] = useState();
   const [isLoadingProductShow, setLoaded] = useState(true);
   const { ProductId } = useParams()
 
   useEffect(() => {
+    
     setTimeout(function () {
-      if (isLoadingProductShow === true) { LoadProduct() }
+      if (isLoadingProductShow === true) { LoadProducts(1,1) }
       setLoaded(false)
     }, 500)
 
 
   });
 
-  const LoadProduct = () => {
+  const LoadProducts = (PageNum,PageLimit,callback) => {
     //    Product(findStr:"{'title':'Mortal Kombat'}"){
       //products(ObjectId:"${ProductId}"){
     //{'_id':'62eb91623ea009cf5d8e2a02'}
-    let requestBody = {
-      query: `
-      query{
-        products(findStr:"{'_id':'${ProductId}'}"){
-          _id,
-          title,
-          price,
-          description,
-          imagePath
-        }
-      }
-      `
-    };
 
-    console.log(requestBody)
 
-    let { env } = require('../nodemon.json')
-
-    //can be use axios and other API library
-    fetch(env.backendGraphQL, {
-      method: 'POST',
-      body: JSON.stringify(requestBody),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(res => {
-        if (res.status !== 200 && res.status !== 201) {
-          
-          
-          alert.error(`Error something went wrong`, { timeout: 3000 })
-          throw new Error('Failed!');
-        }
-        return res.json();
-      })
-      .then(resData => {
-        console.log('resData:')
-        console.log(resData)
-         setProduct(resData.data.products[0])
-
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    const findStr=`{'_id':'${ProductId}'}`
+    
+    getProducts(findStr,1,1,function(res,err)
+    {  //setProduct(resData.data.products[0])
+       setProducts(res[0])
+       return callback
+    }
+    )
   }
 
 

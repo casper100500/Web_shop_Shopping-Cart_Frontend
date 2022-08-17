@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import LogInContext from '../context/auth-context'
 import { withAlert } from 'react-alert'
-import Modal from 'react-bootstrap/Modal';
+
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
