@@ -54,7 +54,13 @@ const DelfromCart = (product) => {
 
     if (cart.Items.find(x => x.product._id === product._id)) {
         console.log('ProductID already in a Cart!')
+        
+        
+
         var itm = cart.Items.find(x => x.product._id === product._id)
+        
+        if (itm.ItmQty===1){return}
+
         itm.ItmQty--
         itm.ItmPrice -= product.price
 

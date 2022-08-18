@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Backdrop from '../components/Backdrop/Backdrop';
 import withRouter from "../components/withRouter";
 import CartList from '../components/Cart/CartList';
 import Spinner from '../components/Spinner/Spinner';
@@ -78,12 +79,16 @@ function CartListPage(props) {
       return (
         <React.Fragment>
           Cart List:
+{isDelDiag &&
 
+<Backdrop />}
           {isDelDiag &&
+          
+          
 
             <DelDiag
               title="Warning"
-              message="Would you like to delete?"
+              message={"Would you like to delete '"+productDel.title+"' from your cart? "}
               canCancel
               canConfirm
               onCancel={CloseDelDiag}
@@ -120,12 +125,13 @@ function CartListPage(props) {
             LoadCart()
             //props.GoToURLFn(event, '/cart')
 
-          }} variant="primary" aria-label="add to shopping cart">
+          }} variant="primary" size='lg'>
             <Icon.Cart size={20} /> Clear
           </Button>
           {' '}
-          <Button variant="success" onClick={function (event) { props.GoToURLFn(event, '/checkout') }}>
-            <Icon.CashCoin size={20} /> checkout
+          <Button variant="success" size='lg'
+          onClick={function (event) { props.GoToURLFn(event, '/checkout') }}>
+            <Icon.CashCoin size={20} /> Checkout
           </Button>
         </React.Fragment>
       )

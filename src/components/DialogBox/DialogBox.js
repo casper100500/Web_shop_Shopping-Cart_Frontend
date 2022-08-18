@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './DialogBox.css';
-import * as Icon from "react-bootstrap-icons";
+//import * as Icon from "react-bootstrap-icons";
 import Button from 'react-bootstrap/Button';
 
 
@@ -12,20 +12,22 @@ const DialogBox = props => (
       <h1>{props.title}</h1>
     </header>
 
-    <div className="DialogBox__content">{props.message}
+    <div className="DialogBox__content">
+      {props.message}
+
       <div className="BtnGroup">
 
 
         {props.canConfirm && (
-          <Button width="100" onClick={props.onConfirm} variant="danger" >
-            Yes
-          </Button>
 
+            <Button size='lg' className='BtnSpace' onClick={props.onConfirm} variant="danger" >
+              Yes
+            </Button>
         )}
         {' '}
         {props.canCancel && (
 
-          <Button onClick={props.onCancel} variant="primary" >
+          <Button size='lg' onClick={props.onCancel} variant="primary" >
             Cancel
           </Button>
 
