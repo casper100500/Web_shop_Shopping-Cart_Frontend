@@ -12,7 +12,7 @@ import LogInPage from './pages/LogIn'
 import SignUPPage from './pages/SignUP';
 import ProductsPage from './pages/Products';
 //import SearchPage from './pages/Search';
-import CartListPage from './pages/CartListPage';
+import CartPage from './pages/CartPage';
 import AuthContext from './context/auth-context'
 import MainNavigation from './components/Navigation/MainNavigation'
 import SpinnerPage from './components/Spinner/Spinner'
@@ -62,7 +62,7 @@ class App extends Component {
     //this.state.userId=null
   }
 
-  setCartItmCount = (refresh,title) => {
+  setCartItmCount = (mode,title) => {
     console.log('setCartItmCount')
     var cart = {
       Items: [],
@@ -75,9 +75,15 @@ class App extends Component {
       console.log(cart)
       //JSON.parse(
       cart = JSON.parse(sessionStorage.getItem("Cart"))
-      if (!refresh) {
+      if (mode==='add') {
         const alert = this.props.alert
         alert.show(`${title} - Added to Cart`)
+      //  alert.show(`Added to Cart`)
+      }
+
+      if (mode==='del') {
+        const alert = this.props.alert
+        alert.error(`${title} - Deleted from Cart`)
       //  alert.show(`Added to Cart`)
       }
     }
@@ -131,7 +137,7 @@ class App extends Component {
                 <Route path="/spinner" element={<SpinnerPage />} />
                 
                 <Route path="/search" element={<ProductsPage />} />
-                <Route path="/cart" element={<CartListPage />} />
+                <Route path="/cart" element={<CartPage />} />
                 {!this.state.token && <Route path="/login" element={<LogInPage />} />}
                 {this.state.token && <Route path="/login" element={<Navigate to="/" />} />}
                 {!this.state.token && <Route path="/signup" element={<SignUPPage />} />}

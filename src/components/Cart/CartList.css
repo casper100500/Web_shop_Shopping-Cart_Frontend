@@ -1,3 +1,26 @@
 td {
- vertical-align:top;
+    vertical-align: top;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.td-middle {
+    vertical-align: top;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.itmsVertical {
+    display: inline-block;
+    ;
+
+
+    align-items: center;
+
+}
+
+.itmsHorisontal {
+    display: flex;
+    align-items: center;
+
 }

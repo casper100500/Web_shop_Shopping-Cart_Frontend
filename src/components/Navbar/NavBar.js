@@ -14,13 +14,13 @@ function NavBarMy(props) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const GoToURLFn = async (event, url) => {
-        event.preventDefault();
-        handleClose()
-        await props.navigate("/spinner")
-        await props.navigate(url)
+    // const GoToURLFn = async (event, url) => {
+    //     event.preventDefault();
+    //     handleClose()
+    //     await props.navigate("/spinner")
+    //     await props.navigate(url)
+    // }
 
-    }
     return (
         <>
             <Button variant="primary" onClick={handleShow}>
@@ -32,48 +32,50 @@ function NavBarMy(props) {
                     <Offcanvas.Title>Menu</Offcanvas.Title>
                     <ul></ul>
                     <div className='menu'>
-                    
-                    <Button onClick={function (event) { GoToURLFn(event, '/login') }} variant="success" aria-label="add to shopping cart">
-                    <Icon.EmojiSunglasses size={25} />
-                    {' '}
-                        {props.context.token && <React.Fragment>{props.context.userName}</React.Fragment>}
-                    </Button>
+
+                        {props.context.token &&
+                            <Button onClick={function (event) {handleClose() 
+                            props.GoToURLFn(event, '/profile') }} variant="success" >
+                                <Icon.EmojiSunglasses size={25} />
+                                {' '}
+                                {props.context.userName}
+                            </Button>}
 
 
-                    <Button onClick={function (event) { GoToURLFn(event, '/cart') }} variant="primary" aria-label="add to shopping cart">
-                        {props.context.CartItmCount === 0 ? <Icon.Cart size={20} />
-                            : <Icon.CartFill size={20} />}
-                        {' '}
-                        <Badge bg="secondary">{props.context.CartItmCount}</Badge>
+                        <Button onClick={function (event) {handleClose() 
+                            props.GoToURLFn(event, '/cart') }} variant="primary" aria-label="add to shopping cart">
+                            {props.context.CartItmCount === 0 ? <Icon.Cart size={20} />
+                                : <Icon.CartFill size={20} />}
+                            {' '}
+                            <Badge bg="secondary">{props.context.CartItmCount}</Badge>
 
 
-                    </Button>
-                </div>
+                        </Button>
+                    </div>
 
-            </Offcanvas.Header>
-            <Offcanvas.Body>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
 
 
-                <ListGroup defaultActiveKey="#link0">
-                    <ListGroup.Item action href="#link1">
-                        My Profile
-                    </ListGroup.Item>
-                    <ListGroup.Item action href="/22" onClick={function (event) { GoToURLFn(event, '/') }}>
-                        Products
-                    </ListGroup.Item>
+                    <ListGroup defaultActiveKey="#link0">
+                        
+                        <ListGroup.Item action href="/22" onClick={function (event) {handleClose()
+                             props.GoToURLFn(event, '/') }}>
+                            Products
+                        </ListGroup.Item>
 
-                    <ListGroup.Item action href="#link4">
-                        Contacts
-                    </ListGroup.Item>
-                    <ListGroup.Item action href="#link5">
-                        About us..
-                    </ListGroup.Item>
-                </ListGroup>
+                        <ListGroup.Item action href="#link4">
+                            Contacts
+                        </ListGroup.Item>
+                        <ListGroup.Item action href="#link5">
+                            About us..
+                        </ListGroup.Item>
+                    </ListGroup>
 
-            </Offcanvas.Body>
-        </Offcanvas>
+                </Offcanvas.Body>
+            </Offcanvas>
         </>
     );
 }
-
+//<UserMenu context={props.context}/>
 export default withRouter(NavBarMy);

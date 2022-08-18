@@ -3,7 +3,7 @@ import React from 'react';
 import './ProductDetails.css'
 import Button from 'react-bootstrap/Button';
 import * as Icon from "react-bootstrap-icons";
-import AddToCart from '../AddToCartFun';
+import ManageCartFun from '../ManageCartFun';
 import AuthContext from '../../../context/auth-context';
 
 
@@ -34,9 +34,15 @@ const ProductShow = (props) => {
                 {props.product.description}
               </div>
               <div>
-                ₴{props.product.price} UAH{' '}
+              <b>₴{props.product.price} UAH{' '}</b>
               </div>
-              <Button onClick={() => AddToCart(props.product,Auth.setCartItmCount)} variant="primary" aria-label="add to shopping cart">
+              <Button onClick={() => 
+              {
+                ManageCartFun.AddToCart(props.product)
+                Auth.setCartItmCount('add',props.product.title)
+              }
+            }  
+                variant="primary" aria-label="add to shopping cart">
                 <Icon.CartPlus size={20} /> Add to Cart
               </Button>
  
