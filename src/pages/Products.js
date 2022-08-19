@@ -58,7 +58,7 @@ function ProductsPage(props) {
       console.log('findStr:')
       console.log(findStr)
     }
-    else { setPageMode('Products:') }
+    else { setPageMode('Products') }
 
 
     getProducts(findStr, PageNum, PageLimit, function (res, err) {
@@ -132,7 +132,8 @@ function ProductsPage(props) {
 
   return (
     <React.Fragment>
-      {Products && PageMode}
+      <center><h1> {Products && PageMode}</h1></center>
+     
 
       {isLoading && <Spinner />}
       {Products &&

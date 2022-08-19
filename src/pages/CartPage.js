@@ -78,7 +78,8 @@ function CartListPage(props) {
     {(context) => {
       return (
         <React.Fragment>
-          Cart List:
+          
+          <center><h1> Cart</h1></center>
 {isDelDiag &&
 
 <Backdrop />}

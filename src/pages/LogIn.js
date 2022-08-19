@@ -115,6 +115,8 @@ class LogInPage extends Component {
   render() {
     return (
       <React.Fragment>
+                <center><h1>Login</h1></center>
+        
         <Form className="LogIn-form" onSubmit={this.submitHandler}>
 
 

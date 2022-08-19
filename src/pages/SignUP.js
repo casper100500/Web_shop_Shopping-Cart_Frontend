@@ -1,52 +1,61 @@
 import React, { Component } from 'react';
-//import { useNavigate } from "react-router-dom";
-//import './SignUP.css';
-import SignUPContext from '../context/auth-context'
-//import { withAlert } from 'react-alert'
-import  withRouter from "../components/withRouter";
-//import { useNavigate } from "react-router-dom";
+import LogInContext from '../context/auth-context'
+import { withAlert } from 'react-alert'
+import withRouter from "../components/withRouter";
+
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 class SignUPPage extends Component {
 
-
-  //add method to the class SignUPPage
-  //The same as switchModeHandler and etc functions but taken from another file
-  static contextType = SignUPContext
+  static contextType = LogInContext
 
 
   //waiting for a changes in email & password elements
   constructor(props) {
     super(props);
     this.emailEl = React.createRef();
-    this.passwordEl = React.createRef();
-
+    this.passwordEl1 = React.createRef();
+    this.passwordEl2 = React.createRef();
   }
+
 
   submitHandler = event => {
     event.preventDefault(); //to be sure no request get send
+    const alert = this.props.alert
     const email = this.emailEl.current.value;
-    const password = this.passwordEl.current.value;
+    const password = this.passwordEl1.current.value;
+
     console.log(this.emailEl.current.value)
+
     //trim() function delete spaces and etc
     if (email.trim().length === 0 || password.trim().length === 0) {
       return;
     }
 
-      let requestBody = {
-        query: `
-          mutation {
-            createUser(userInput: {email: "${email}", password: "${password}"}) {
-              _id
-              email
-            }
+    if (this.passwordEl1.current.value!==this.passwordEl2.current.value) {
+      alert.error(`Confirm password is incorrect! Try again.`, { timeout: 5000 })
+      return;
+    }    
+        
+
+    let requestBody = {
+      query: `
+        mutation {
+          createUser(userInput: {email: "${email}", password: "${password}"}) {
+            _id
+            email
           }
-        `
-      };
-    
+        }
+      `
+    };
+
     console.log(requestBody)
-    //let navigate = useNavigate(); 
+
+    let { env } = require('../nodemon.json')
+
     //can be use axios and other API library
-    fetch('http://localhost:5000/graphql', {
+    fetch(env.backendGraphQL, {
       method: 'POST',
       body: JSON.stringify(requestBody),
       headers: {
@@ -55,20 +64,21 @@ class SignUPPage extends Component {
     })
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
+          
+          alert.error(`login or password is incorrect! Try again.`, { timeout: 5000 })
           throw new Error('Failed!');
         }
         return res.json();
       })
       .then(resData => {
+      
         console.log('created.......')
         console.log(resData);
-        if (resData.errors!==undefined)
-        {
-        console.log(resData.errors[0].message)
-        alert.error(resData.errors[0].message, { timeout: 5000 })
+        if (resData.errors !== undefined) {
+          console.log(resData.errors[0].message)
+          alert.error(resData.errors[0].message, { timeout: 5000 })
         }
-        else
-        {
+        else {
           alert.success(`User ${email} was created. Please Login...`, { timeout: 5000 })
           this.props.navigate("/login");
         }
@@ -82,25 +92,39 @@ class SignUPPage extends Component {
 
   render() {
     return (
-      <React.Fragment>SignUP:
-      <form className="SignUP-form" onSubmit={this.submitHandler}>
-        <div className="form-control">
-          <label htmlFor="email">E-Mail</label>
-          <input type="email" id="email" ref={this.emailEl} />
-        </div>
-        <div className="form-control">
-          <label htmlFor="password">Password</label>
-          <input type="password" id="password" ref={this.passwordEl} />
-        </div>
-        <div className="form-actions">
-          <button type="submit">Create User</button>
-        </div>
-      </form>
+      <React.Fragment>
+        <center><h1>SignUP</h1></center>
+        <Form className="LogIn-form" onSubmit={this.submitHandler}>
+
+
+
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Login</Form.Label>
+            <Form.Control type="email" placeholder="Enter email login" ref={this.emailEl} />
+
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password" placeholder="Password" ref={this.passwordEl1} />
+          </Form.Group>
+
+
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control type="password" placeholder="Password" ref={this.passwordEl2} />
+          </Form.Group>
+
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+
+
+        </Form>
       </React.Fragment>
     );
   }
 }
-
-
-export default withRouter(SignUPPage)
-//export default SignUPPage;
+//
+export default withAlert()(withRouter(SignUPPage));
+//export default withAlert()(SignUPPage);

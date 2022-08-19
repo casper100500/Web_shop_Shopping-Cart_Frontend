@@ -13,6 +13,7 @@ import SignUPPage from './pages/SignUP';
 import ProductsPage from './pages/Products';
 //import SearchPage from './pages/Search';
 import CartPage from './pages/CartPage';
+import CheckoutPage from './pages/Checkout';
 import AuthContext from './context/auth-context'
 import MainNavigation from './components/Navigation/MainNavigation'
 import SpinnerPage from './components/Spinner/Spinner'
@@ -135,9 +136,9 @@ class App extends Component {
 
                 <Route path="/" element={<ProductsPage />} />
                 <Route path="/spinner" element={<SpinnerPage />} />
-                
                 <Route path="/search" element={<ProductsPage />} />
                 <Route path="/cart" element={<CartPage />} />
+                <Route path="/checkout" element={<CheckoutPage />} />
                 {!this.state.token && <Route path="/login" element={<LogInPage />} />}
                 {this.state.token && <Route path="/login" element={<Navigate to="/" />} />}
                 {!this.state.token && <Route path="/signup" element={<SignUPPage />} />}
