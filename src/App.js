@@ -13,11 +13,14 @@ import SignUPPage from './pages/SignUP';
 import ProductsPage from './pages/Products';
 //import SearchPage from './pages/Search';
 import CartPage from './pages/CartPage';
+
+
+
 import CheckoutPage from './pages/Checkout';
 import AuthContext from './context/auth-context'
 import MainNavigation from './components/Navigation/MainNavigation'
 import SpinnerPage from './components/Spinner/Spinner'
-
+import SuccessPage from './components/Checkout/SuccessPage';
 import TabRefresh from './components/Session/TabRefresh'
 import ProductShowPage from './pages/ProductShow'
 import { withAlert } from 'react-alert'
@@ -136,6 +139,7 @@ class App extends Component {
 
                 <Route path="/" element={<ProductsPage />} />
                 <Route path="/spinner" element={<SpinnerPage />} />
+                <Route path="/success" element={<SuccessPage />} />
                 <Route path="/search" element={<ProductsPage />} />
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
