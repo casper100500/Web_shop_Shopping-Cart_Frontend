@@ -4,7 +4,7 @@ import './ProducItm.css'
 import Button from 'react-bootstrap/Button';
 import * as Icon from "react-bootstrap-icons";
 //const [ProductShow, setProductShow] = useState();
-import ManageCartFun from './ManageCartFun';
+import ManageCartFun from '../Cart/ManageCartFun';
 import AuthContext from '../../context/auth-context';
 
 
@@ -14,6 +14,11 @@ const ProductItm = (props) => {
   //console.log(props)
   //{props.i} {props.rowNumber}
   var shortID = props.product._id
+  shortID=shortID.substr(7,shortID.length-7)
+  var shortDesc = props.product.description
+  shortDesc=shortDesc.substr(0,50)+'...'
+
+  
   const Auth = React.useContext(AuthContext); //to call login function
 
   //  shortID=shortID.slice(18)
@@ -31,8 +36,18 @@ const ProductItm = (props) => {
               {props.product.title}
             </Link>
           </div>
+
           <div className='smallID'>
+            
             ({shortID})
+
+          </div>
+          <div className='description'>
+          
+          <Link style={{textDecoration: 'none', color: 'black'}} to={`/ProductShow/${props.product._id}`}>
+          {shortDesc}
+          </Link>
+
           </div>
           <div>
             <b>₴{props.product.price} UAH</b>

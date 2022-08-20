@@ -1,6 +1,9 @@
 .smallID {
   font-size: 10px;
- 
- 
+}
+
+.description2{
+  pointer-events: none;
+  text-decoration: none;
 }
 

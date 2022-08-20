@@ -3,7 +3,7 @@ import './CartList.css';
 import { Link } from 'react-router-dom';
 import * as Icon from "react-bootstrap-icons";
 import Button from 'react-bootstrap/Button';
-import ManageCartFun from '../Products/ManageCartFun';
+import ManageCartFun from './ManageCartFun';
 import AuthContext from '../../context/auth-context';
 
 const CartList = props => {

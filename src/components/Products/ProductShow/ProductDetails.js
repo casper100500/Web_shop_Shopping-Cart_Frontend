@@ -3,7 +3,7 @@ import React from 'react';
 import './ProductDetails.css'
 import Button from 'react-bootstrap/Button';
 import * as Icon from "react-bootstrap-icons";
-import ManageCartFun from '../ManageCartFun';
+import ManageCartFun from '../../Cart/ManageCartFun';
 import AuthContext from '../../../context/auth-context';
 
 

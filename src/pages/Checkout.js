@@ -72,9 +72,9 @@ function CheckoutPage(props) {
             ${cartStr} }
         ,
           email:"${Auth.userName}",
-          PaymentID:"123",
-          PaymentStatus:"123",
-          SessionID:"123"
+          PaymentID:"null",
+          PaymentStatus:"null",
+          SessionID:"null"
             })
         {_id,PaymentID,SessionID,PaymentStatus,clientSecret}
         
@@ -102,7 +102,7 @@ function CheckoutPage(props) {
         console.log(res)
         if (res.status !== 200 && res.status !== 201) {
 
-          alert.error(`login or password is incorrect! Try again.`, { timeout: 5000 })
+          alert.error(`Some errors occurred!`, { timeout: 5000 })
           throw new Error('Failed!');
         }
         return res.json();

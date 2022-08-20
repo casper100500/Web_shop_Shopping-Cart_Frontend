@@ -31,7 +31,7 @@ function UserMenu(props) {
                     }
                     {props.context.token &&
                         <React.Fragment>
-                            <Dropdown.Item as={Link} to="/">Profile</Dropdown.Item>
+                            <Dropdown.Item as={Link} to="/profile">Profile</Dropdown.Item>
                             <Dropdown.Item onClick={props.context.logout}>Logout</Dropdown.Item>
                         </React.Fragment>
 

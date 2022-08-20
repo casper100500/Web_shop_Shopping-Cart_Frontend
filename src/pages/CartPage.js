@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import * as Icon from "react-bootstrap-icons";
 import AuthContext from '../context/auth-context'
 import DelDiag from '../components/DialogBox/DialogBox'
-import ManageCartFun from '../components/Products/ManageCartFun';
+import ManageCartFun from '../components/Cart/ManageCartFun';
 
 function CartListPage(props) {
   const Auth = React.useContext(AuthContext);

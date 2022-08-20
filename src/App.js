@@ -17,6 +17,7 @@ import CartPage from './pages/CartPage';
 
 
 import CheckoutPage from './pages/Checkout';
+import ProfilePage from './pages/ProfilePage';
 import AuthContext from './context/auth-context'
 import MainNavigation from './components/Navigation/MainNavigation'
 import SpinnerPage from './components/Spinner/Spinner'
@@ -129,7 +130,7 @@ class App extends Component {
           }} >
 
           <React.Fragment>
-
+<div width="2000"></div>
             <TabRefresh />
 
             <MainNavigation />
@@ -139,6 +140,7 @@ class App extends Component {
 
                 <Route path="/" element={<ProductsPage />} />
                 <Route path="/spinner" element={<SpinnerPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/success" element={<SuccessPage />} />
                 <Route path="/search" element={<ProductsPage />} />
                 <Route path="/cart" element={<CartPage />} />

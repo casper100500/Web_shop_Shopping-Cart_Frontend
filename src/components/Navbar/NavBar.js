@@ -23,6 +23,7 @@ function NavBarMy(props) {
 
     return (
         <>
+        <div className='NavBarMenu'>
             <Button variant="primary" onClick={handleShow}>
                 <Icon.Justify size={20} />
             </Button>
@@ -74,6 +75,7 @@ function NavBarMy(props) {
 
                 </Offcanvas.Body>
             </Offcanvas>
+            </div>
         </>
     );
 }

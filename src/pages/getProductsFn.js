@@ -12,7 +12,8 @@ const getProducts =  (findStr,PageNum,PageLimit,callback=()=>{}) => {
              _id,
             title,
             price,
-            imagePath
+            imagePath,
+            description
           },
           TotalCount
         }

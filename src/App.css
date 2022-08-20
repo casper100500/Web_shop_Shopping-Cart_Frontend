@@ -2,26 +2,8 @@
 
 .main-content {
     margin: 4rem 2.5rem;
+
+    min-width: 550px;
   }
 
 
-
-
-   button {
-    background: #376ddae9;
-    font: inherit;
-    border: 1px solid #102584;
-    border-radius: 3px;
-    padding: 0.25rem 1rem;
-    margin-right: 1rem;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.26);
-    color: white;
-    cursor: pointer;
-  }
-  
-   button:hover,
-   button:active {
-      color:black;
-      background: rgb(122, 135, 211);
-      border-color: rgb(52, 12, 184);
-  }

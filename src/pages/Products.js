@@ -1,20 +1,23 @@
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import InputGroup from 'react-bootstrap/InputGroup';
-
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import ProductList from '../components/Products/ProductList';
 import Spinner from '../components/Spinner/Spinner';
 import getProducts from './getProductsFn'
 import './Products.css';
+import { useMediaQuery,MediaQuery  } from 'react-responsive'
 
 var CurPageALL = 1
 var TotalPages = 1
 var PageLimit = 5
 
 function ProductsPage(props) {
-
+  const isDesktopOrLaptop = useMediaQuery({
+    query: '(min-width: 1224px)'
+  })
   const [PageMode, setPageMode] = useState();
   const [Products, setProducts] = useState();
 
@@ -132,8 +135,11 @@ function ProductsPage(props) {
 
   return (
     <React.Fragment>
+      
       <center><h1> {Products && PageMode}</h1></center>
      
+ 
+
 
       {isLoading && <Spinner />}
       {Products &&
@@ -141,8 +147,8 @@ function ProductsPage(props) {
           <ul></ul>
 
 
-
-          <InputGroup className="mb-0" direction="horizontal">
+<div className='SendToBack'>
+          <InputGroup className="mb-0" direction="horizontal" style={{  position: 'relative', zIndex: 1 }} >
             <InputGroup.Text id="basic-addon1">Items:</InputGroup.Text>
 
             <DropdownButton id="dropdown-ItmsPerPage" title="">
@@ -168,7 +174,7 @@ function ProductsPage(props) {
 
 
           </InputGroup>
-
+          </div>
           <table className="table">
             <thead>
               <tr>
