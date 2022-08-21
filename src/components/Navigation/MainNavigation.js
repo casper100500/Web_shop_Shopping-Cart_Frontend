@@ -110,7 +110,7 @@ function mainNavigation(props) {
                         </Button>
 
 
-                        <UserMenu context={context} />
+                       
 
 
 
@@ -121,3 +121,4 @@ function mainNavigation(props) {
 }
 
 export default withRouter(mainNavigation)
+// <UserMenu context={context} />
