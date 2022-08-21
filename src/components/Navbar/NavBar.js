@@ -37,7 +37,7 @@ function NavBarMy(props) {
                             {props.context.token &&
                                 <Button onClick={function (event) {
                                     handleClose()
-                                    props.GoToURLFn(event, '/profile')
+                                    props.GoToURLFn(event, '/myOrders')
                                 }} variant="success" >
                                     <Icon.EmojiSunglasses size={25} />
                                     {' '}
@@ -76,11 +76,16 @@ function NavBarMy(props) {
 
                                     <ListGroup.Item action href="/7377" onClick={function (event) {
                                         handleClose()
-                                        props.GoToURLFn(event, '/profile')
+                                        props.GoToURLFn(event, '/myOrders')
                                     }}>
                                         My orders
                                     </ListGroup.Item>
-                                </React.Fragment>
+                                    <ListGroup.Item action href="/737887" onClick={function (event) {
+                                        handleClose()
+                                        props.context.logout()
+                                    }}>
+                                        Logout
+                                    </ListGroup.Item>                               </React.Fragment>
                             }
 
                             {!props.context.token &&

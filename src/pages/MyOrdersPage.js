@@ -8,11 +8,11 @@ import * as Icon from "react-bootstrap-icons";
 import AuthContext from '../context/auth-context'
 
 
-import OrderList from '../components/MyProfile/OrderList'
+import OrderList from '../components/MyOrders/MyALLOrdersList'
 
 
 
-function ProfilePage(props) {
+function MyOrdersPage(props) {
   const Auth = React.useContext(AuthContext);
   const [Orders, setOrders] = useState();
   const [totalPrice, setTotalPrice] = useState(0);
@@ -100,7 +100,9 @@ function ProfilePage(props) {
         }
         else {
           console.log(resData)
+          
           setOrders(resData.data.ordersALL.Orders)
+          sessionStorage.setItem("MyOrders",JSON.stringify(resData.data.ordersALL.Orders))
           //alert.success(`Order created`, { timeout: 5000 })
 
           //setClientSecret(options)
@@ -163,4 +165,4 @@ function ProfilePage(props) {
 //               <OrderList Orders={Orders} />
 
 // {Products.title}
-export default withRouter(ProfilePage);
+export default withRouter(MyOrdersPage);

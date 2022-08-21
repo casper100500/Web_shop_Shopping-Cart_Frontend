@@ -15,9 +15,9 @@ import ProductsPage from './pages/Products';
 import CartPage from './pages/CartPage';
 
 
-
+import MyOrderDetailPage from './pages/MyOrderDetailPage';
 import CheckoutPage from './pages/Checkout';
-import ProfilePage from './pages/ProfilePage';
+import MyOrdersPage from './pages/MyOrdersPage';
 import AuthContext from './context/auth-context'
 import MainNavigation from './components/Navigation/MainNavigation'
 import SpinnerPage from './components/Spinner/Spinner'
@@ -140,7 +140,7 @@ class App extends Component {
 
                 <Route path="/" element={<ProductsPage />} />
                 <Route path="/spinner" element={<SpinnerPage />} />
-                <Route path="/profile" element={<ProfilePage />} />
+                {this.state.token && <Route path="/myOrders" element={<MyOrdersPage />} />}
                 <Route path="/success" element={<SuccessPage />} />
                 <Route path="/search" element={<ProductsPage />} />
                 <Route path="/cart" element={<CartPage />} />
@@ -148,6 +148,7 @@ class App extends Component {
                 {!this.state.token && <Route path="/login" element={<LogInPage />} />}
                 {this.state.token && <Route path="/login" element={<Navigate to="/" />} />}
                 {!this.state.token && <Route path="/signup" element={<SignUPPage />} />}
+                <Route path="MyOrderDetailPage/:OrderId" element={<MyOrderDetailPage />} />
                 <Route path="ProductShow/:ProductId" element={<ProductShowPage />} />
 
               </Routes>
