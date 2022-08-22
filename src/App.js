@@ -13,7 +13,7 @@ import SignUPPage from './pages/SignUP';
 import ProductsPage from './pages/Products';
 //import SearchPage from './pages/Search';
 import CartPage from './pages/CartPage';
-
+import MyProfilePage from './pages/MyProfilePage';
 
 import MyOrderDetailPage from './pages/MyOrderDetailPage';
 import CheckoutPage from './pages/Checkout';
@@ -137,10 +137,11 @@ class App extends Component {
 
             <main className="main-content">
               <Routes>
-
+              
                 <Route path="/" element={<ProductsPage />} />
                 <Route path="/spinner" element={<SpinnerPage />} />
                 {this.state.token && <Route path="/myOrders" element={<MyOrdersPage />} />}
+                {this.state.token && <Route path="/myProfile" element={<MyProfilePage />} />}
                 <Route path="/success" element={<SuccessPage />} />
                 <Route path="/search" element={<ProductsPage />} />
                 <Route path="/cart" element={<CartPage />} />

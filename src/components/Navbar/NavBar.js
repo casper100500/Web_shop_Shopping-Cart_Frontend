@@ -69,7 +69,7 @@ function NavBarMy(props) {
                                 <React.Fragment>
                                     <ListGroup.Item action href="/7177" onClick={function (event) {
                                         handleClose()
-                                        props.GoToURLFn(event, '/profile')
+                                        props.GoToURLFn(event, '/myProfile')
                                     }}>
                                         My profile
                                     </ListGroup.Item>
