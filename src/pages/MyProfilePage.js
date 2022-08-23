@@ -6,6 +6,9 @@ import * as Icon from "react-bootstrap-icons";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import AuthContext from '../context/auth-context'
+import getBase64 from '../components/convertToBase64'
+
+
 
 function MyProfilePage(props) {
   var ProfileImageBase64 = ''
@@ -20,24 +23,7 @@ function MyProfilePage(props) {
   }
 
 
-  const getBase64 = (file) => {
-
-    // Returns a promise which gets resolved or rejected based on the reader events
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      // Sets up even listeners BEFORE you call reader.readAsDataURL
-      reader.onload = function () {
-        const result = reader.result
-        return resolve(result);
-      };
-
-      reader.onerror = function (error) {
-        return reject(error);
-      };
-      // Calls reader function
-      reader.readAsDataURL(file);
-    })
-  }
+ 
 
   const LoadImage = async (e) => {
     console.log('LoadImage')

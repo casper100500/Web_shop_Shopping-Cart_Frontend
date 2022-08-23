@@ -8,17 +8,15 @@ import ProductList from '../components/Products/ProductList';
 import Spinner from '../components/Spinner/Spinner';
 import getProducts from './getProductsFn'
 import './Products.css';
-import { useMediaQuery,MediaQuery  } from 'react-responsive'
 
 var CurPageALL = 1
 var TotalPages = 1
 var PageLimit = 5
 
 function ProductsPage(props) {
-  const isDesktopOrLaptop = useMediaQuery({
-    query: '(min-width: 1224px)'
-  })
+
   const [PageMode, setPageMode] = useState();
+  const [SearchString, setSearchString] = useState();
   const [Products, setProducts] = useState();
 
   const [isLoading, setLoaded] = useState(true);
@@ -51,8 +49,8 @@ function ProductsPage(props) {
     console.log('LoadProducts')
 
     if (window.location.pathname === '/search') {
-      setPageMode('Search result for : ' + sessionStorage.getItem("SearchTXT"))
-
+      setPageMode('Search')
+      setSearchString(sessionStorage.getItem("SearchTXT"))
       console.log(sessionStorage.getItem("SearchTXT"))
 
       if (sessionStorage.getItem("SearchTXT") !== null) {
@@ -70,6 +68,7 @@ function ProductsPage(props) {
       if (TotalPages === 0) {
         TotalPages = 1
       }
+
       return callback()
     }
     )
@@ -102,27 +101,55 @@ function ProductsPage(props) {
   }
 
   useEffect(() => {
+ //   var dropdown = document.getElementById('dropdown-ItmsPerPage');
+ //   console.log('dropdown.innerHTML')
+ //   console.log(dropdown.innerHTML)
+    // if (dropdown.innerHTML === "") {
+
+    //   ItmsPerPageFn(5)
+    // }
+
+
+    if (window.location.pathname === '/' && PageMode !== 'Products') {
+
+      setPageMode('Products')
+      setLoaded(true)
+    }
+    if (window.location.pathname === '/search' && PageMode !== 'Search') {
+      setPageMode('Search')
+      setLoaded(true)
+    }
+
+    if (SearchString !== sessionStorage.getItem("SearchTXT") && window.location.pathname === '/search') {
+      setPageMode('Search')
+      setLoaded(true)
+    }
+
+
 
     setTimeout(async function () {
-      
-      
+
+
 
       if (isLoading === true) {
         CurPageALL = 1
 
-        
-        await LoadProducts(0, PageLimit, function () {
-           setCurPage('Page ' + CurPageALL + ' of ' + TotalPages)
 
-        })
-        var dropdown = document.getElementById('dropdown-ItmsPerPage');
-        dropdown.innerHTML = PageLimit
+        await LoadProducts(0, PageLimit, function () {
+          setLoaded(false)
+          setCurPage('Page ' + CurPageALL + ' of ' + TotalPages)
+          var dropdown = document.getElementById('dropdown-ItmsPerPage');
+            dropdown.innerHTML = PageLimit
+     //  ItmsPerPageFn(PageLimit)
+       
+      })
+        
 
       }
-      await setLoaded(false)
 
-      
-     
+
+
+
 
     }, 500)
 
@@ -135,45 +162,53 @@ function ProductsPage(props) {
 
   return (
     <React.Fragment>
-      
-      <center><h1> {Products && PageMode}</h1></center>
-     
- 
+      {!isLoading &&
+        <center><h1> {Products && PageMode}
+
+          {PageMode === "Search" &&
+            <React.Fragment>
+              {' '}result for: {SearchString}
+            </React.Fragment>
+          }
+
+        </h1></center>
+
+      }
 
 
       {isLoading && <Spinner />}
-      {Products &&
+      {(!isLoading && Products) &&
         <React.Fragment>
           <ul></ul>
 
 
-<div className='SendToBack'>
-          <InputGroup className="mb-0" direction="horizontal" style={{  position: 'relative', zIndex: 1 }} >
-            <InputGroup.Text id="basic-addon1">Items:</InputGroup.Text>
+          <div className='SendToBack'>
+            <InputGroup className="mb-0" direction="horizontal" style={{ position: 'relative', zIndex: 1 }} >
+              <InputGroup.Text id="basic-addon1">Items:</InputGroup.Text>
 
-            <DropdownButton id="dropdown-ItmsPerPage" title="">
-
-
-              <Dropdown.Item onClick={() => { ItmsPerPageFn(2) }}>2</Dropdown.Item>
-              <Dropdown.Item onClick={() => { ItmsPerPageFn(3) }}>3</Dropdown.Item>
-              <Dropdown.Item onClick={() => { ItmsPerPageFn(5) }}>5</Dropdown.Item>
-              <Dropdown.Item onClick={() => { ItmsPerPageFn(10) }}>10</Dropdown.Item>
-              <Dropdown.Item onClick={() => { ItmsPerPageFn(20) }}>20</Dropdown.Item>
-              <Dropdown.Item onClick={() => { ItmsPerPageFn(50) }}>50</Dropdown.Item>
-
-            </DropdownButton>
-
-            <InputGroup.Text id="basic-addon1">{CurPage}</InputGroup.Text>
-            <Button disabled={PrevBtn} onClick={PrevPageFn} variant="primary">
-              Previous
-            </Button>
-
-            <Button disabled={NextBtn} onClick={NextPageFn} variant="primary">
-              Next
-            </Button>
+              <DropdownButton id="dropdown-ItmsPerPage" title="">
 
 
-          </InputGroup>
+                <Dropdown.Item onClick={() => { ItmsPerPageFn(2) }}>2</Dropdown.Item>
+                <Dropdown.Item onClick={() => { ItmsPerPageFn(3) }}>3</Dropdown.Item>
+                <Dropdown.Item onClick={() => { ItmsPerPageFn(5) }}>5</Dropdown.Item>
+                <Dropdown.Item onClick={() => { ItmsPerPageFn(10) }}>10</Dropdown.Item>
+                <Dropdown.Item onClick={() => { ItmsPerPageFn(20) }}>20</Dropdown.Item>
+                <Dropdown.Item onClick={() => { ItmsPerPageFn(50) }}>50</Dropdown.Item>
+
+              </DropdownButton>
+
+              <InputGroup.Text id="basic-addon1">{CurPage}</InputGroup.Text>
+              <Button disabled={PrevBtn} onClick={PrevPageFn} variant="primary">
+                Previous
+              </Button>
+
+              <Button disabled={NextBtn} onClick={NextPageFn} variant="primary">
+                Next
+              </Button>
+
+
+            </InputGroup>
           </div>
           <table className="table">
             <thead>

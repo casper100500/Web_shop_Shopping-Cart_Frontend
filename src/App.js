@@ -11,10 +11,12 @@ import React, { Component } from 'react';
 import LogInPage from './pages/LogIn'
 import SignUPPage from './pages/SignUP';
 import ProductsPage from './pages/Products';
+import AboutUSPage from './pages/AboutUS';
+import ContactsPage from './pages/Contacts';
 //import SearchPage from './pages/Search';
 import CartPage from './pages/CartPage';
 import MyProfilePage from './pages/MyProfilePage';
-
+import CreateUpdateProduct from './pages/CreateUpdateProduct';
 import MyOrderDetailPage from './pages/MyOrderDetailPage';
 import CheckoutPage from './pages/Checkout';
 import MyOrdersPage from './pages/MyOrdersPage';
@@ -139,7 +141,11 @@ class App extends Component {
               <Routes>
               
                 <Route path="/" element={<ProductsPage />} />
+                <Route path="/AboutUS" element={<AboutUSPage />} />
+                <Route path="/contacts" element={<ContactsPage />} />
+              
                 <Route path="/spinner" element={<SpinnerPage />} />
+                {this.state.token && <Route path="/CreateUpdateProduct/:ProductId" element={<CreateUpdateProduct />} />}
                 {this.state.token && <Route path="/myOrders" element={<MyOrdersPage />} />}
                 {this.state.token && <Route path="/myProfile" element={<MyProfilePage />} />}
                 <Route path="/success" element={<SuccessPage />} />

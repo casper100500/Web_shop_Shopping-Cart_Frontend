@@ -15,8 +15,9 @@ const withRouter = (Component) => {
       
       event.preventDefault();
       if (window.location.pathname === url)
-      {window.location.reload(false);
-      //  await navigate("/spinner")
+      {//window.location.reload(false);
+     //   await navigate("/spinner")
+        await navigate(url)
       } 
       else
       {await navigate(url)}

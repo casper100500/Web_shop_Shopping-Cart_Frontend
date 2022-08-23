@@ -4,20 +4,25 @@ import Button from 'react-bootstrap/Button';
 import Spinner from '../components/Spinner/Spinner';
 import ProductDetails from '../components/Products/ProductShow/ProductDetails'
 import { useParams } from 'react-router-dom'
-import { useAlert  } from 'react-alert'
+import AuthContext from '../context/auth-context'
 
 import getProducts from './getProductsFn'
 
 //<Button onClick={newURL} variant="primary" >Navigate</Button>
-function ProductShow() {
-  //var isLoaded=false
-  const alert =useAlert()
+function ProductShow(props) {
+  const Auth = React.useContext(AuthContext);
   const [Product, setProducts] = useState();
+  const [ProductLink, setProductLink] = useState();
   const [isLoadingProductShow, setLoaded] = useState(true);
   const { ProductId } = useParams()
 
   useEffect(() => {
     
+    if (Auth.userName==="casper2002")
+    {
+    setProductLink(`/CreateUpdateProduct/${ProductId}`)
+    }
+
     setTimeout(function () {
       if (isLoadingProductShow === true) { LoadProducts(1,1) }
       setLoaded(false)
@@ -54,11 +59,24 @@ function ProductShow() {
       }
       <ul></ul>
 
+      {ProductLink &&   
+      <Link to={ProductLink} >
+                    <Button  >
+                       Edit Product
+                    </Button>
+                    </Link>       
+} 
+
+                 
+
     </React.Fragment>
   );
 }
 
 // {Product.title}
-export default ProductShow;
+export default (ProductShow);
+//   {(props.context.token && props.context.userName==='casper2002') &&
+   
+//export default ProductShow;
 //<ProductDetails product={Product} />
 // <ProductDetails Product={Product} />

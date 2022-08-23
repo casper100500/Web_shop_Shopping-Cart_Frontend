@@ -37,7 +37,7 @@ function NavBarMy(props) {
                             {props.context.token &&
                                 <Button onClick={function (event) {
                                     handleClose()
-                                    props.GoToURLFn(event, '/myOrders')
+                                    props.GoToURLFn(event, '/myProfile')
                                 }} variant="success" >
                                     <Icon.EmojiSunglasses size={25} />
                                     {' '}
@@ -61,6 +61,24 @@ function NavBarMy(props) {
                     </Offcanvas.Header>
                     <Offcanvas.Body>
                     <ul>   </ul>
+                    {(props.context.token && props.context.userName==='casper2002') &&
+                     <React.Fragment>
+                    <h4>Admin:</h4>
+                    <ListGroup defaultActiveKey="#link0">
+
+                    <ListGroup.Item action href="/717337" onClick={function (event) {
+                        handleClose()
+                        props.GoToURLFn(event, '/CreateProduct/new')
+                    }}>
+                       Create Product
+                    </ListGroup.Item>
+                    </ListGroup>
+                    <ul>   </ul>
+                    </React.Fragment>
+
+                    }
+
+
                         <h4>User:</h4>
 
                         <ListGroup defaultActiveKey="#link0">
@@ -74,6 +92,8 @@ function NavBarMy(props) {
                                         My profile
                                     </ListGroup.Item>
 
+
+
                                     <ListGroup.Item action href="/7377" onClick={function (event) {
                                         handleClose()
                                         props.GoToURLFn(event, '/myOrders')
@@ -83,6 +103,7 @@ function NavBarMy(props) {
                                     <ListGroup.Item action href="/737887" onClick={function (event) {
                                         handleClose()
                                         props.context.logout()
+                                        props.GoToURLFn(event, '/')
                                     }}>
                                         Logout
                                     </ListGroup.Item>                               </React.Fragment>
@@ -119,12 +140,18 @@ function NavBarMy(props) {
                             }}>
                                 Products
                             </ListGroup.Item>
+                            
 
-
-                            <ListGroup.Item action href="#link4">
+                            <ListGroup.Item action href="#link4" onClick={function (event) {
+                                handleClose()
+                                props.GoToURLFn(event, '/contacts')
+                            }}>
                                 Contacts
                             </ListGroup.Item>
-                            <ListGroup.Item action href="#link5">
+                            <ListGroup.Item action href="#link5" onClick={function (event) {
+                                handleClose()
+                                props.GoToURLFn(event, '/AboutUS')
+                            }}>
                                 About us..
                             </ListGroup.Item>
                         </ListGroup>
