@@ -52,21 +52,24 @@ function ProductShow(props) {
   return (
 
     <React.Fragment>
-     
+      
+
+
+
       {isLoadingProductShow && <Spinner />}
       {Product &&
         <ProductDetails product={Product} />
       }
       <ul></ul>
+      <p align="right">
 
-      {ProductLink &&   
-      <Link to={ProductLink} >
-                    <Button  >
-                       Edit Product
-                    </Button>
-                    </Link>       
-} 
-
+{ProductLink &&   
+<Link to={ProductLink} >
+              <Button  variant="danger" >
+                 Edit Product
+              </Button>
+              </Link>       
+} </p>
                  
 
     </React.Fragment>

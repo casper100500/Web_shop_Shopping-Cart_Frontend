@@ -15,7 +15,17 @@ var TotalPages = 1
 var PageLimit = 5
 
 function ProductsPage(props) {
+  const [PerPage, setPerPage] = useState();
+  const [PageMode, setPageMode] = useState();
+  const [SearchString, setSearchString] = useState();
+  const [Products, setProducts] = useState();
 
+  const [isLoading, setLoaded] = useState(true);
+
+  const [PrevBtn, setPrevBtnDisable] = useState(false);
+  const [NextBtn, setNextBtnDisable] = useState(false);
+
+  const [CurPage, setCurPage] = useState();
 
   const ProductsPageReloadFn = () => {
     console.log('Reload ProductsPageReloadFn!!!')
@@ -38,13 +48,18 @@ function ProductsPage(props) {
 
 
       if (isLoading === true) {
+        setLoaded(false)
         CurPageALL = 1
+  
         await LoadProducts(0, PageLimit, function () {
-          setLoaded(false)
+
+       
+
           setCurPage('Page ' + CurPageALL + ' of ' + TotalPages)
-          var dropdown = document.getElementById('dropdown-ItmsPerPage');
-          dropdown.innerHTML = PageLimit
-          //  ItmsPerPageFn(PageLimit)
+          setPerPage(PageLimit)
+
+
+
 
         })
       }
@@ -52,44 +67,7 @@ function ProductsPage(props) {
     }, 500)
 
   }
-  useEffect(() => {
 
-    console.log('useEffect')
-    LoadPage()
-
-  });
-  const Auth = React.useContext(AuthContext);
-  Auth.ReloadPage = ProductsPageReloadFn
-
-  const [PageMode, setPageMode] = useState();
-  const [SearchString, setSearchString] = useState();
-  const [Products, setProducts] = useState();
-
-  const [isLoading, setLoaded] = useState(true);
-
-  const [PrevBtn, setPrevBtnDisable] = useState(false);
-  const [NextBtn, setNextBtnDisable] = useState(false);
-
-  const [CurPage, setCurPage] = useState();
-
-
-
-  const ItmsPerPageFn = (ItmsPerPage) => {
-    console.log('ItmsPerPage')
-    console.log(ItmsPerPage)
-    var dropdown = document.getElementById('dropdown-ItmsPerPage');
-    //console.log(dropdown.innerHTML)
-    PageLimit = ItmsPerPage
-    dropdown.innerHTML = ItmsPerPage
-
-    CurPageALL = 1
-
-    LoadProducts(0, PageLimit, function () {
-      setCurPage('Page ' + CurPageALL + ' of ' + TotalPages)
-    })
-
-
-  }
   const LoadProducts = async (PageNum, PageLimit, callback) => {
     var findStr = ``
     console.log('LoadProducts')
@@ -108,7 +86,7 @@ function ProductsPage(props) {
     else { setPageMode('Products') }
 
 
-    getProducts(findStr, PageNum, PageLimit, function (res, err) {
+    await getProducts(findStr, PageNum, PageLimit, function (res, err) {
       setProducts(res.Products)
       TotalPages = Math.round(res.TotalCount / PageLimit)
       // console.log('TotalPages')
@@ -125,6 +103,39 @@ function ProductsPage(props) {
       return callback()
     }
     )
+
+  }
+
+
+
+  useEffect(() => {
+
+    console.log('useEffect')
+    LoadPage()
+
+  });
+
+  const Auth = React.useContext(AuthContext);
+  Auth.ReloadPage = ProductsPageReloadFn
+ 
+
+
+
+  const ItmsPerPageFn = (ItmsPerPage) => {
+    console.log('ItmsPerPage')
+    console.log(ItmsPerPage)
+    //console.log(dropdown.innerHTML)
+    PageLimit = ItmsPerPage
+    setPerPage(PageLimit)
+    // var dropdown = document.getElementById('dropdown-ItmsPerPage');
+    // dropdown.innerHTML = ItmsPerPage
+
+    CurPageALL = 1
+
+    LoadProducts(0, PageLimit, function () {
+      setCurPage('Page ' + CurPageALL + ' of ' + TotalPages)
+    })
+
 
   }
 
@@ -184,7 +195,7 @@ function ProductsPage(props) {
             <InputGroup className="mb-0" direction="horizontal" style={{ position: 'relative', zIndex: 1 }} >
               <InputGroup.Text id="basic-addon1">Items:</InputGroup.Text>
 
-              <DropdownButton id="dropdown-ItmsPerPage" title="">
+              <DropdownButton id="dropdown-ItmsPerPage" title={PerPage}>
 
 
                 <Dropdown.Item onClick={() => { ItmsPerPageFn(2) }}>2</Dropdown.Item>

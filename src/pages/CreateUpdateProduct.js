@@ -214,7 +214,7 @@ else
               <img onClick={ChoseFileFn} src={ProductImage} width="150" height="150" id="ProductImage"  />
             </React.Fragment>
             :
-            <Icon.PersonBoundingBox onClick={ChoseFileFn} size={120} />
+            <Icon.Cart  size={120} />
           }
           <ul>
           
@@ -229,6 +229,7 @@ else
               onChange={(e) => LoadImage(e)}
 
             />
+
           </ul>
         </center>
 
