@@ -7,5 +7,6 @@ export default React.createContext({
     login: (token, userId, userName, tokenExpiration)=>{},
     logout: ()=>{},
     setCartItmCount:()=>{},
-    setCartItmCountNull:()=>{}
+    setCartItmCountNull:()=>{},
+    ReloadPage:()=>{}
 });

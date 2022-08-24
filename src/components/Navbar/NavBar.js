@@ -68,7 +68,7 @@ function NavBarMy(props) {
 
                     <ListGroup.Item action href="/717337" onClick={function (event) {
                         handleClose()
-                        props.GoToURLFn(event, '/CreateProduct/new')
+                        props.GoToURLFn(event, '/CreateUpdateProduct/new')
                     }}>
                        Create Product
                     </ListGroup.Item>

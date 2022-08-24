@@ -14,24 +14,28 @@ import withRouter from "../withRouter";
 
 function mainNavigation(props) {
 
-
+   // const Auth = React.useContext(AuthContext);
  
     const SearchChange = () => {
-        var search = document.getElementById('search');
-        console.log(search.value);
+        //var search = document.getElementById('search');
+        //console.log(search.value);
     }
 
 
 
-    const SearchFn = async (event) => {
+    const SearchFn = async (event,ReloadPage) => {
         event.preventDefault();
+        props.navigate('/search')
+        ReloadPage()
+        
+
         var search = document.getElementById('search');
         console.log(search.value);
         await sessionStorage.setItem("SearchTXT", search.value)
         //, function(){
         console.log(sessionStorage.getItem("SearchTXT"));
-        props.GoToURLFn(event, '/search')
-      //props.navigate('/search')
+        //props.GoToURLFn(event, '/search')
+      
         //  window.location.reload(false);
         //   window.location.reload();
         //props.navigate(0)
@@ -57,11 +61,13 @@ function mainNavigation(props) {
 
                             <span className="myspan"></span>
 
-                            <img onClick={function (event) {
+<Button onClick={function (event) {
                               
-                                props.GoToURLFn(event, '/')
-                            }} width="45" height="45" src={'https://png2.cleanpng.com/sh/4ceca5363904e42ea8f839e1ff1932ee/L0KzQYm3VsA3N6V0kZH0aYP2gLBuTgNucZ1qkZ9ubXBteX76lPlkc5Z3RdN5cD32hLF5hb02amI8fNNtMELmc7e8Wb4zQGk6TqsAMEG4Qom5WcAxOGE2UKUBLoDxd1==/kisspng-smiley-emoji-sticker-app-store-5b17dad02ccf59.2885695015282900001836.png'} alt="..." class="img-responsive" />
+                              props.GoToURLFn(event, '/')
+                          }}>
+                            OK
 
+</Button>
 
 
                         </div>
@@ -71,7 +77,7 @@ function mainNavigation(props) {
                      
 
 
-                            <form onSubmit={function (event) {SearchFn(event)}}>
+                            <form onSubmit={function (event) {SearchFn(event,context.ReloadPage)}}>
                             <InputGroup className="mb-0" direction="horizontal" >
                                 <InputGroup.Text id="basic-addon1">
                                     <Icon.Search size={20} />
@@ -80,9 +86,9 @@ function mainNavigation(props) {
                                     type="search"
                                     placeholder="I'm Serching for..."
                                     id="search"
-                                    onChange={SearchChange}
-                                />
-                                <Button onClick={function (event) {SearchFn(event)}} variant="primary" id="button-search">
+                                    onChange={SearchChange(context.ReloadPage)}                                />
+                                <Button onClick={function (event) {SearchFn(event,context.ReloadPage)}}
+                                 variant="primary" id="button-search">
                                     Find
                                 </Button>
                                 </InputGroup>

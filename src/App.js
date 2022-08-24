@@ -113,7 +113,9 @@ class App extends Component {
 
     this.setState({ CartItmCount: 0 })
   }
-
+  
+  ReloadPage = () => {
+  }
   render() {
     return (
 
@@ -128,6 +130,7 @@ class App extends Component {
             logout: this.logout,
             setCartItmCount: this.setCartItmCount,
             setCartItmCountNull: this.setCartItmCountNull,
+            ReloadPage:this.ReloadPage,
             CartItmCount: this.state.CartItmCount
           }} >
 

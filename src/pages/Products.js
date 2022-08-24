@@ -1,19 +1,65 @@
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import InputGroup from 'react-bootstrap/InputGroup';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
+
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import ProductList from '../components/Products/ProductList';
 import Spinner from '../components/Spinner/Spinner';
 import getProducts from './getProductsFn'
 import './Products.css';
+import AuthContext from '../context/auth-context';
 
 var CurPageALL = 1
 var TotalPages = 1
 var PageLimit = 5
 
 function ProductsPage(props) {
+
+
+  const ProductsPageReloadFn = () => {
+    console.log('Reload ProductsPageReloadFn!!!')
+    if (window.location.pathname === '/') {
+      setPageMode('Products')
+    }
+
+    if (window.location.pathname === '/search') {
+      setPageMode('Search')
+    }
+
+    setLoaded(true)
+    LoadPage()
+  }
+
+  const LoadPage = () => {
+
+    setTimeout(async function () {
+
+
+
+      if (isLoading === true) {
+        CurPageALL = 1
+        await LoadProducts(0, PageLimit, function () {
+          setLoaded(false)
+          setCurPage('Page ' + CurPageALL + ' of ' + TotalPages)
+          var dropdown = document.getElementById('dropdown-ItmsPerPage');
+          dropdown.innerHTML = PageLimit
+          //  ItmsPerPageFn(PageLimit)
+
+        })
+      }
+
+    }, 500)
+
+  }
+  useEffect(() => {
+
+    console.log('useEffect')
+    LoadPage()
+
+  });
+  const Auth = React.useContext(AuthContext);
+  Auth.ReloadPage = ProductsPageReloadFn
 
   const [PageMode, setPageMode] = useState();
   const [SearchString, setSearchString] = useState();
@@ -65,6 +111,13 @@ function ProductsPage(props) {
     getProducts(findStr, PageNum, PageLimit, function (res, err) {
       setProducts(res.Products)
       TotalPages = Math.round(res.TotalCount / PageLimit)
+      // console.log('TotalPages')
+      // console.log(TotalPages)
+      // console.log(res.TotalCount / PageLimit)
+
+
+      if (TotalPages !== res.TotalCount / PageLimit) { TotalPages++ }
+
       if (TotalPages === 0) {
         TotalPages = 1
       }
@@ -100,61 +153,6 @@ function ProductsPage(props) {
     }
   }
 
-  useEffect(() => {
- //   var dropdown = document.getElementById('dropdown-ItmsPerPage');
- //   console.log('dropdown.innerHTML')
- //   console.log(dropdown.innerHTML)
-    // if (dropdown.innerHTML === "") {
-
-    //   ItmsPerPageFn(5)
-    // }
-
-
-    if (window.location.pathname === '/' && PageMode !== 'Products') {
-
-      setPageMode('Products')
-      setLoaded(true)
-    }
-    if (window.location.pathname === '/search' && PageMode !== 'Search') {
-      setPageMode('Search')
-      setLoaded(true)
-    }
-
-    if (SearchString !== sessionStorage.getItem("SearchTXT") && window.location.pathname === '/search') {
-      setPageMode('Search')
-      setLoaded(true)
-    }
-
-
-
-    setTimeout(async function () {
-
-
-
-      if (isLoading === true) {
-        CurPageALL = 1
-
-
-        await LoadProducts(0, PageLimit, function () {
-          setLoaded(false)
-          setCurPage('Page ' + CurPageALL + ' of ' + TotalPages)
-          var dropdown = document.getElementById('dropdown-ItmsPerPage');
-            dropdown.innerHTML = PageLimit
-     //  ItmsPerPageFn(PageLimit)
-       
-      })
-        
-
-      }
-
-
-
-
-
-    }, 500)
-
-
-  });
 
 
 
