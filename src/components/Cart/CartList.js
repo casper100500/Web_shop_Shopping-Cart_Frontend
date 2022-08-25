@@ -17,10 +17,10 @@ const CartList = props => {
 
       <React.Fragment>
         <tr key={itm.product._id} width="100" height="120">
-          <td width="100" >
+          <td width="100" className='td-middle'>
             <center>{itm.product._id}</center>
           </td>
-          <td align="center">
+          <td className='td-middle'>
 
             <Link to={`../ProductShow/${itm.product._id}`}>
               <img width="80" height="80" src={itm.product.imagePath} alt="..." class="img-responsive" />
@@ -33,13 +33,13 @@ const CartList = props => {
 
 
           </td>
-          <td>
-            <b>₴{itm.product.price}</b>
+          <td className='td-middle'>
+            <h2>₴{itm.product.price}</h2>
           </td>
 
           <td>
 
-            <tr>
+            <tr className='td-middle'>
               <Button onClick={() => {
                 ManageCartFun.AddToCart(itm.product)
                 Auth.setCartItmCount(false, itm.product.title)
@@ -50,7 +50,7 @@ const CartList = props => {
                 <Icon.ChevronUp size={20} />
 
               </Button>
-              <tr>
+              <tr className='td-middle'>
                 <Button onClick={() => {
                   ManageCartFun.DelfromCart(itm.product)
                   Auth.setCartItmCount(false, itm.product.title)
@@ -65,9 +65,9 @@ const CartList = props => {
               </tr>
               <td className='td-middle' width="40">
 
-                <b>            {itm.ItmQty}            </b>
+                <h2>{itm.ItmQty}</h2>
               </td>
-              <td>
+              <td className='td-middle'>
               <Button onClick={() => {
 
                 props.ShowDelDiag(itm.product)
@@ -86,7 +86,7 @@ const CartList = props => {
 
           </td>
           <td>
-            <b>₴{itm.ItmPrice}</b>
+            <h2>₴{itm.ItmPrice}</h2>
           </td>
 
         </tr>

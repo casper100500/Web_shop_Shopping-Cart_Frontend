@@ -51,7 +51,7 @@ const MyALLOrdersList = props => {
             </center>
           </td>
           <td>
-            <b>₴{itm.OrderCart.totalPrice}</b>
+            <h2>₴{itm.OrderCart.totalPrice}</h2>
           </td>
 
           <td>

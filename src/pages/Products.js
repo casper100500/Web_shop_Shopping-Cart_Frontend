@@ -9,12 +9,15 @@ import Spinner from '../components/Spinner/Spinner';
 import getProducts from './getProductsFn'
 import './Products.css';
 import AuthContext from '../context/auth-context';
+import detectZoom from 'detect-zoom';
+
 
 var CurPageALL = 1
 var TotalPages = 1
 var PageLimit = 5
 
 function ProductsPage(props) {
+
   const [PerPage, setPerPage] = useState();
   const [PageMode, setPageMode] = useState();
   const [SearchString, setSearchString] = useState();
@@ -26,6 +29,37 @@ function ProductsPage(props) {
   const [NextBtn, setNextBtnDisable] = useState(false);
 
   const [CurPage, setCurPage] = useState();
+
+  const size = useWindowSize();
+  const [Zoom, setZoom] = useState(0);
+  // Hook
+  function useWindowSize() {
+    // Initialize state with undefined width/height so server and client renders match
+    // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+    const [windowSize, setWindowSize] = useState({
+      width: undefined,
+      height: undefined,
+    });
+    useEffect(() => {
+      // Handler to call on window resize
+      function handleResize() {
+        // Set window width/height to state
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+
+      }
+      // Add event listener
+      window.addEventListener("resize", handleResize);
+      // Call handler right away so state gets updated with initial window size
+      handleResize();
+      // Remove event listener on cleanup
+      return () => window.removeEventListener("resize", handleResize);
+    }, []); // Empty array ensures that effect is only run on mount
+    return windowSize;
+  }
+
 
   const ProductsPageReloadFn = () => {
     console.log('Reload ProductsPageReloadFn!!!')
@@ -50,10 +84,10 @@ function ProductsPage(props) {
       if (isLoading === true) {
         setLoaded(false)
         CurPageALL = 1
-  
+
         await LoadProducts(0, PageLimit, function () {
 
-       
+
 
           setCurPage('Page ' + CurPageALL + ' of ' + TotalPages)
           setPerPage(PageLimit)
@@ -106,18 +140,37 @@ function ProductsPage(props) {
 
   }
 
-
-
+  
   useEffect(() => {
+
+    if (detectZoom.device() * 100 !== 100) {
+      console.log('your zoom is not 100')
+    } else {
+      console.log('your zoom is 100')
+    }
+
+    setZoom(detectZoom.device() * 100)
 
     console.log('useEffect')
     LoadPage()
 
   });
 
+  const fixZoom = ()=>{
+    var Page = document.getElementById('body');
+
+    console.log('fixZoom')
+    window.outerWidth=window.outerWidth - 10
+    window.innerWidth=window.innerWidth - 10
+   // document.body.style.zoom = 1.5;
+
+//document.body.style.zoom="30%"
+  }
+
+
   const Auth = React.useContext(AuthContext);
   Auth.ReloadPage = ProductsPageReloadFn
- 
+
 
 
 
@@ -166,11 +219,19 @@ function ProductsPage(props) {
 
 
 
-
+  // {size.width}px / {size.height}px
+  // <ul>{Zoom}%</ul>
+  
+  // <Button onClick={fixZoom} variant="primary">
+  //   fix Zoom
+  // </Button>
 
 
   return (
     <React.Fragment>
+     
+ 
+   
       {!isLoading &&
         <center><h1> {Products && PageMode}
 
@@ -219,15 +280,16 @@ function ProductsPage(props) {
 
             </InputGroup>
           </div>
+          <ul></ul>
           <table className="table">
             <thead>
               <tr>
-                <th></th>
+                
               </tr>
             </thead>
 
             <tbody>
-              <ProductList Products={Products} wndWidth={window.innerWidth} />
+              <ProductList Products={Products}  />
             </tbody>
 
           </table>
@@ -247,3 +309,7 @@ function ProductsPage(props) {
 
 // {Products.title}
 export default ProductsPage;
+
+{/* <div>
+      {size.width}px / {size.height}px
+    </div> */}

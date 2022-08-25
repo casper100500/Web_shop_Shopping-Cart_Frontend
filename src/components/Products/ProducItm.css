@@ -7,3 +7,12 @@
   text-decoration: none;
 }
 
+.center-justified {
+  text-align: justify;
+  text-align-last: left;
+}
+
+table td { 
+  display: table-cell;
+  vertical-align: top; 
+}

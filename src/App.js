@@ -6,7 +6,7 @@ import './App.css';
 import { BrowserRouter, Route, Navigate, Routes } from 'react-router-dom'
 //import { useParams } from 'react-router-dom'
 //import { withAlert } from 'react-alert'
-
+import CatalogPage from './pages/Catalog';
 import React, { Component } from 'react';
 import LogInPage from './pages/LogIn'
 import SignUPPage from './pages/SignUP';
@@ -27,7 +27,7 @@ import SuccessPage from './components/Checkout/SuccessPage';
 import TabRefresh from './components/Session/TabRefresh'
 import ProductShowPage from './pages/ProductShow'
 import { withAlert } from 'react-alert'
-//  <Navigate from="/" to="/auth" exact/> 
+
 
 //function App() {
 class App extends Component {
@@ -50,12 +50,9 @@ class App extends Component {
       console.log(`Logged2: ${userName}`)
       const UserLogin = { token: token, userName: userName, userId: userId, tokenExpiration: tokenExpiration }
       sessionStorage.setItem("UserLogin", JSON.stringify(UserLogin));
-      //sessionStorage.setItem("UserLogin", UserLogin);
-      console.log(UserLogin)
+     console.log(UserLogin)
 
-      //console.log(`Logged: ${userId}\ntoken:${token}`)
-      // console.log(`state token: ${this.state.token}`)
-    })
+  })
 
   }
 
@@ -63,10 +60,7 @@ class App extends Component {
     this.setState({ token: null, userId: null, userName: null })
     sessionStorage.setItem("UserLogin", null);
     console.log('logout!!!!!!!!!!!!!!!!!!')
-    //console.log(`state token: ${this.state.token}`)
 
-    //this.state.token=null
-    //this.state.userId=null
   }
 
   setCartItmCount = (mode,title) => {
@@ -146,6 +140,7 @@ class App extends Component {
                 <Route path="/" element={<ProductsPage />} />
                 <Route path="/AboutUS" element={<AboutUSPage />} />
                 <Route path="/contacts" element={<ContactsPage />} />
+                <Route path="/catalog" element={<CatalogPage />} />
               
                 <Route path="/spinner" element={<SpinnerPage />} />
                 {this.state.token && <Route path="/CreateUpdateProduct/:ProductId" element={<CreateUpdateProduct />} />}
@@ -174,9 +169,5 @@ class App extends Component {
     );
   }
 }
-//{this.state.token && <Route path="/auth" element={<Navigate to="/" />} />}
-//{!this.state.token && <Route path="/auth" element={<AuthPage />} />}
-//{!this.state.token && <Route path="/" element={<Navigate to="/auth" />} />}
-//export default withAlert(App);
-//export default App;
+
 export default withAlert()(App);

@@ -1,7 +1,7 @@
 {
     "env": {
         "backendGraphQL": "http://localhost:5000/graphql",
-        "backendGraphQL2": "https://162e-5-43-177-50.eu.ngrok.io/graphql",
+        "backendGraphQL2": "https://8f23-89-201-246-104.eu.ngrok.io/graphql",
         "backendURL": "http://localhost:5000",
         "backendPort": "5000"
     }

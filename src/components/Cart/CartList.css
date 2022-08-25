@@ -1,11 +1,16 @@
+table td { 
+    display: table-cell;
+    vertical-align:middle; 
+  }
+
 td {
-    vertical-align: top;
+    
     text-align: center;
     vertical-align: middle;
 }
 
 .td-middle {
-    vertical-align: top;
+    align-items: center;
     text-align: center;
     vertical-align: middle;
 }
@@ -13,6 +18,7 @@ td {
 .itmsVertical {
     display: inline-block;
     align-items: center;
+    vertical-align: middle;
 }
 
 .itmsHorisontal {

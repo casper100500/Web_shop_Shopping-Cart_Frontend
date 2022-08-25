@@ -1,7 +1,11 @@
-import React from 'react';
+import React,{ useState } from 'react';
 //import ProductItm from './ProductItm';
 import ProductRow from './ProductRow';
+
+
 const ProductList = props => {
+
+
   console.log('ProductList')
   console.log(props)
 
@@ -13,7 +17,10 @@ const ProductList = props => {
   var product3 = [];
 
   //var chunkSize = 3;
-  var chunkSize = Math.trunc(props.wndWidth/200)
+  var chunkSize = Math.trunc(window.innerWidth/200)
+
+
+   
   
   //console.log(docs.length) //4
 
@@ -36,9 +43,10 @@ const ProductList = props => {
         {productChunks.map(row => {
           //console.log(row[0]._id+row[0].title)
           rowNumber++
+          
           return (
             <React.Fragment>  
-              <ProductRow row={row} rowNumber={rowNumber} />
+              <ProductRow row={row}  rowNumber={rowNumber} />
             </React.Fragment>
           )
 
@@ -54,6 +62,7 @@ const ProductList = props => {
 
 
 };
+//              <ProductRow row={row} rowNumber={rowNumber} tdWidth={tdWidth} tdHeight={tdHeight}/>
 
 
 export default ProductList;

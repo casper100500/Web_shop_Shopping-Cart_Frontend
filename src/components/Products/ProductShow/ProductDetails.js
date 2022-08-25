@@ -34,7 +34,7 @@ const ProductShow = (props) => {
                 {props.product.description}
               </div>
               <div>
-              <b>₴{props.product.price} UAH{' '}</b>
+              <h2>₴{props.product.price} UAH{' '}</h2>
               </div>
               <Button onClick={() => 
               {
