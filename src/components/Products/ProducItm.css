@@ -16,3 +16,8 @@ table td {
   display: table-cell;
   vertical-align: top; 
 }
+
+.ProductItemTD {
+  display: table-cell;
+  vertical-align: top; 
+}

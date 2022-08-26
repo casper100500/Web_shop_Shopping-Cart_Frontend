@@ -36,22 +36,22 @@ const ProductItm = (props) => {
 
   return (
     <React.Fragment>
-      <td key={props.product._id} width={tdWidth} height={tdHeight}>
-        <tr height="150">
+      <td key={props.product._id} className='ProductItemTD' width={tdWidth} height={tdHeight}>
+        <tr height="150" >
           <center>
             <Link to={`/ProductShow/${props.product._id}`}>
               <img width={tdWidth} height={tdHeight} src={props.product.imagePath} alt="..." class="img-responsive" />
             </Link>
           </center>
         </tr>
-        <tr  height="60">
+        <tr height="60">
             <div>
               <Link to={`/ProductShow/${props.product._id}`}>
                 {props.product.title}
               </Link>
             </div>
         </tr>
-        <tr height="60">
+        <tr height="100">
           <center>
             <div className='center-justified'>
               <Link style={{ textDecoration: 'none', color: 'black' }} to={`/ProductShow/${props.product._id}`}>
