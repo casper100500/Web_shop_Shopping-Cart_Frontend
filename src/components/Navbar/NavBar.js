@@ -134,8 +134,15 @@ function NavBarMy(props) {
                         <ListGroup defaultActiveKey="#link0">
 
 
-                            <ListGroup.Item action href="/22" onClick={function (event) {
+                        <ListGroup.Item action href="/2245" onClick={function (event) {
                                 handleClose()
+                                props.GoToURLFn(event, '/catalog')
+                            }}>
+                                Catalog
+                            </ListGroup.Item>
+                                                        <ListGroup.Item action href="/22" onClick={function (event) {
+                                handleClose()
+                                sessionStorage.setItem("CatalogID",0)
                                 props.GoToURLFn(event, '/')
                             }}>
                                 Products

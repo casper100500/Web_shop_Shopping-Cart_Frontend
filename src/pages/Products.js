@@ -1,6 +1,7 @@
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import InputGroup from 'react-bootstrap/InputGroup';
+import { Link } from 'react-router-dom'
 
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
@@ -10,7 +11,8 @@ import getProducts from './getProductsFn'
 import './Products.css';
 import AuthContext from '../context/auth-context';
 import detectZoom from 'detect-zoom';
-
+import Catalog from '../CatalogFN'
+import withRouter from "../components/withRouter";
 
 var CurPageALL = 1
 var TotalPages = 1
@@ -19,6 +21,8 @@ var PageLimit = 5
 function ProductsPage(props) {
 
   const [PerPage, setPerPage] = useState();
+  const [CatalogPath, setCatalogPath] = useState();
+  
   const [PageMode, setPageMode] = useState();
   const [SearchString, setSearchString] = useState();
   const [Products, setProducts] = useState();
@@ -32,6 +36,13 @@ function ProductsPage(props) {
 
   const size = useWindowSize();
   const [Zoom, setZoom] = useState(0);
+
+  const searchCatalog = (e, id) => {
+    e.preventDefault();
+    console.log(id)
+    sessionStorage.setItem("CatalogID",id)
+    console.log(Catalog.getChildItems(id))
+  }
   // Hook
   function useWindowSize() {
     // Initialize state with undefined width/height so server and client renders match
@@ -104,6 +115,27 @@ function ProductsPage(props) {
 
   const LoadProducts = async (PageNum, PageLimit, callback) => {
     var findStr = ``
+
+    if(sessionStorage.getItem("CatalogID")){
+      const id=Number(sessionStorage.getItem("CatalogID"))
+      console.log('CatalogID')
+      console.log(Catalog.getChildItems(id))
+      const arr=Catalog.getChildItems(id)
+      //{catalogID:{$in:[ 1, 2, 3, 5, 6 ]}}
+     // findStr =`{catalogID:{$in:[ ${arr} ]}}`
+      findStr =`{'catalogID':{'$in':[ ${arr} ]}}`
+
+       const catalog = Catalog.getPath(id)
+       //const path = catalog.path
+       console.log(catalog.path)
+       console.log(id)
+       console.log(catalog)
+       setCatalogPath(catalog)
+
+
+      console.log(findStr)
+    }
+
     console.log('LoadProducts')
 
     if (window.location.pathname === '/search') {
@@ -128,7 +160,11 @@ function ProductsPage(props) {
       // console.log(res.TotalCount / PageLimit)
 
 
-      if (TotalPages !== res.TotalCount / PageLimit) { TotalPages++ }
+//      if (TotalPages !== res.TotalCount / PageLimit) {
+  if (PageLimit*TotalPages<res.TotalCount) {
+    
+         TotalPages++ 
+        }
 
       if (TotalPages === 0) {
         TotalPages = 1
@@ -230,9 +266,24 @@ function ProductsPage(props) {
   return (
     <React.Fragment>
      
- 
+     <h4>
+        {(CatalogPath && PageMode !== "Search") && CatalogPath.pathArr.map(itm => {
+          return (
+            <React.Fragment>
+              {' > '} <Link to="" 
+              onClick={(e) => { 
+                searchCatalog(e, itm.id) 
+                props.GoToURLFn(e, '/')
+                }}>
+                {itm.label}
+              </Link>
+            </React.Fragment>
+          )
+        })}
+       </h4>
    
       {!isLoading &&
+      <React.Fragment>
         <center><h1> {Products && PageMode}
 
           {PageMode === "Search" &&
@@ -242,7 +293,9 @@ function ProductsPage(props) {
           }
 
         </h1></center>
-
+        
+       
+       </React.Fragment>
       }
 
 
@@ -308,8 +361,8 @@ function ProductsPage(props) {
 
 
 // {Products.title}
-export default ProductsPage;
 
+export default withRouter(ProductsPage)
 {/* <div>
       {size.width}px / {size.height}px
     </div> */}

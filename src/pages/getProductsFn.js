@@ -16,7 +16,8 @@ const getProducts = (findStr, PageNum, PageLimit, callback = () => { }) => {
             title,
             price,
             imagePath,
-            description
+            description,
+            catalogID
           },
           TotalCount
         }

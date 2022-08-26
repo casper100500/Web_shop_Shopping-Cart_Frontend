@@ -9,6 +9,7 @@ import AuthContext from '../context/auth-context'
 import getBase64 from '../components/convertToBase64';
 import { useParams } from 'react-router-dom'
 import getProducts from './getProductsFn'
+import Catalog from '../CatalogFN'
 
 function CreateUpdateProduct(props) {
   const { ProductId } = useParams()
@@ -17,6 +18,7 @@ function CreateUpdateProduct(props) {
   const [selectedFile, setSelectedFile] = useState();
   const [ProductImage, setProductImage] = useState(false);
   const [isLoading, setLoaded] = useState(true);
+  const [path, setPath] = useState();
 
   const ChoseFileFn = () => {
     document.getElementById('ChoseFile').click()
@@ -70,11 +72,19 @@ function CreateUpdateProduct(props) {
        document.getElementById('title').value = product.title;
        document.getElementById('description').value = product.description;
        document.getElementById('price').value = product.price;
+       setProductImage(product.imagePath)
+       document.getElementById('CatalogID').value = product.catalogID;
+       console.log('getPath(product.catalogID)')
+       console.log(product.catalogID)
+       console.log(Catalog.getPath(product.catalogID).path)
+       setPath(Catalog.getPath(product.catalogID).path)
+
+
        console.log(product.imagePath)
      ///  document.getElementById('ProductImage').scr = product.imagePath;
        
    
-      setProductImage(product.imagePath)
+      
     })
         //event.preventDefault(); //to be sure no request get send
 
@@ -99,11 +109,13 @@ function CreateUpdateProduct(props) {
     
 
     console.log('submitHandler')
-    const  _id= document.getElementById('ProductID').value;
+    const _id= document.getElementById('ProductID').value;
+    const catalogID= document.getElementById('CatalogID').value;
     const imagePath = document.getElementById('imagePath').value;
     const title = document.getElementById('title').value;
     const description = document.getElementById('description').value;
     const price = document.getElementById('price').value;
+   
     setProductImage(document.getElementById('imagePath').value)
     //const Image = document.getElementById('Image').value;
 ///    const Image = ProductImageBase64
@@ -118,8 +130,8 @@ if (_id){
         imagePath:"${imagePath}",
         title:"${title}",
         description:"${description}",
-        price:${price}
-
+        price:${price},
+        catalogID:${catalogID}
       })
       {_id,
         title
@@ -138,8 +150,8 @@ else
           imagePath:"${imagePath}",
           title:"${title}",
           description:"${description}",
-          price:${price}
-
+          price:${price},
+          catalogID:${catalogID}
         })
         {_id,
           title
@@ -236,6 +248,11 @@ else
         <Form.Group className="mb-3" >
           <Form.Label>Product ID</Form.Label>
           <Form.Control disabled={true} id="ProductID" type="ProductID"  />
+        </Form.Group>
+
+        <Form.Group className="mb-3" >
+          <Form.Label>Catalog ID ({path})</Form.Label>
+          <Form.Control id="CatalogID" type="CatalogID"  />
         </Form.Group>
 
         <Form.Group className="mb-3" >

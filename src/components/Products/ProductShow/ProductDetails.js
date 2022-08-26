@@ -1,61 +1,92 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './ProductDetails.css'
 import Button from 'react-bootstrap/Button';
 import * as Icon from "react-bootstrap-icons";
 import ManageCartFun from '../../Cart/ManageCartFun';
 import AuthContext from '../../../context/auth-context';
-
+import Catalog from '../../../CatalogFN'
+import { Link } from 'react-router-dom'
+import withRouter from "../../withRouter";
 
 const ProductShow = (props) => {
+  const searchCatalog = (e, id) => {
+    e.preventDefault();
+    console.log(id)
+    sessionStorage.setItem("CatalogID",id)
+    console.log(Catalog.getChildItems(id))
+  }
+  //const [path, setPath] = useState();
+  // const path=getCatalogPath(props.product._id).path
+  const catalog = Catalog.getPath(props.product.catalogID)
+  const path = catalog.path
+  console.log(catalog.pathArr)
+
   console.log('ProductShow')
   console.log(props)
   //{props.i} {props.rowNumber}
   var shortID = props.product._id
   shortID = shortID.slice(18)
   const Auth = React.useContext(AuthContext); //to call login function
-  
 
-        return (
-          <React.Fragment>
-            <center>
-              <h1>
-                {props.product.title}
 
-              </h1>
-              <img width="150" height="150" src={props.product.imagePath} alt="..." class="img-responsive" />
-              <div className='smallID'>
-                ({shortID})
-              </div>
-              <div>
-                Description:
-              </div>
-              <div>
-                {props.product.description}
-              </div>
-              <div>
-              <h2>₴{props.product.price} UAH{' '}</h2>
-              </div>
-              <Button onClick={() => 
-              {
-                ManageCartFun.AddToCart(props.product)
-                Auth.setCartItmCount('add',props.product.title)
-              }
-            }  
-                variant="primary" aria-label="add to shopping cart">
-                <Icon.CartPlus size={20} /> Add to Cart
-              </Button>
- 
+  return (
+    <React.Fragment>
+      
+      <h4>
+          {catalog.pathArr.map(itm => {
+            return (
+              <React.Fragment>
+                {' > '} <Link to="" 
+                onClick={(e) => { 
+                  searchCatalog(e, itm.id) 
+                  props.GoToURLFn(e, '/')
+                  }}>
+                  {itm.label}
+                </Link>
+              </React.Fragment>
+            )
+          })}
+        </h4>
+      <center>
 
-            </center>
+        <h1>
+          {props.product.title}
 
-          </React.Fragment>
-        )
- 
+        </h1>
+        
+        <ul></ul>
+        <img width="150" height="150" src={props.product.imagePath} alt="..." class="img-responsive" />
+        <div className='smallID'>
+          ({shortID})
+        </div>
+        <div>
+          Description:
+        </div>
+        <div>
+          {props.product.description}
+        </div>
+        <div>
+          <h2>₴{props.product.price} UAH{' '}</h2>
+        </div>
+        <Button onClick={() => {
+          ManageCartFun.AddToCart(props.product)
+          Auth.setCartItmCount('add', props.product.title)
+        }
+        }
+          variant="primary" aria-label="add to shopping cart">
+          <Icon.CartPlus size={20} /> Add to Cart
+        </Button>
+
+
+      </center>
+
+    </React.Fragment>
+  )
+
 
 
 };
 
 
-
-export default ProductShow;
+export default withRouter(ProductShow)
