@@ -2,6 +2,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { Link } from 'react-router-dom'
+import * as Icon from "react-bootstrap-icons";
 
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
@@ -270,7 +271,7 @@ function ProductsPage(props) {
         {(CatalogPath && PageMode !== "Search") && CatalogPath.pathArr.map(itm => {
           return (
             <React.Fragment>
-              {' > '} <Link to="" 
+               <Icon.ArrowRight size={20} /> <Link to="" 
               onClick={(e) => { 
                 searchCatalog(e, itm.id) 
                 props.GoToURLFn(e, '/')

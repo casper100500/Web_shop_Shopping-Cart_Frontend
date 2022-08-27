@@ -36,12 +36,11 @@ function CatalogPage(props) {
 
         </ul>
 
-        <div style={{ display: 'flex', flexWrap: 'nowrap', flexGrow: 1 }}>
-          <div style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
-            <Tree nodes={nodes} size="half" theme={'light'} onSelect={(arr) => { onSelect(arr) }} />
+         <div style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
+            <Tree  nodes={nodes} size="half" theme={'light'} onSelect={(arr) => { onSelect(arr) }} />
           </div>
 
-        </div>
+        
 
 
       </center>

@@ -22,9 +22,17 @@ const CartList = props => {
           </td>
           <td className='td-middle'>
 
-            <Link to={`../ProductShow/${itm.product._id}`}>
-              <img width="80" height="80" src={itm.product.imagePath} alt="..." class="img-responsive" />
+            
+
+          
+          <div className='divMax'>
+          <Link to={`../ProductShow/${itm.product._id}`}>
+              <img className='imgMax' src={itm.product.imagePath}  />
             </Link>
+            </div>
+         
+
+
             <div>
               <Link to={`../ProductShow/${itm.product._id}`}>
                 {itm.product.title}

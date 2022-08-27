@@ -31,12 +31,13 @@ const MyALLOrdersList = props => {
 
                 return (
                   <React.Fragment>
-
-                    <Link to={`/ProductShow/${row.product._id}`}>
-                      <img width="50" height="50" src={row.product.imagePath} alt="..." class="img-responsive" />
-                    </Link>
-
+                    <div className='OrderdivMax'>
+                      <Link to={`/ProductShow/${row.product._id}`}>
+                        <img className='OrderimgMax' src={row.product.imagePath} />
+                      </Link>
+                    </div>
                     {' '}
+
                   </React.Fragment>
                 )
 
@@ -46,7 +47,7 @@ const MyALLOrdersList = props => {
               )}
 
               <ul>
-                Items: {itm.OrderCart.totalQty} 
+                Items: {itm.OrderCart.totalQty}
               </ul>
             </center>
           </td>

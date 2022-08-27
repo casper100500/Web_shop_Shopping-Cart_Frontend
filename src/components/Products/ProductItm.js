@@ -37,11 +37,13 @@ const ProductItm = (props) => {
   return (
     <React.Fragment>
       <td key={props.product._id} className='ProductItemTD' width={tdWidth} height={tdHeight}>
-        <tr height="150" >
+        <tr  width={tdWidth} height={tdHeight}>
           <center>
+          <div className='divMax'>
             <Link to={`/ProductShow/${props.product._id}`}>
-              <img width={tdWidth} height={tdHeight} src={props.product.imagePath} alt="..." class="img-responsive" />
+              <img  className='imgMax' src={props.product.imagePath} />
             </Link>
+            </div>
           </center>
         </tr>
         <tr height="60">

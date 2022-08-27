@@ -10,6 +10,8 @@
         {"id":6,"parentId":2,"label":"PC"}
       ]
     },
+    {"id":100,"parentId":1,"label":"Monitors"},
+
         
     
     {"id":11,"parentId":0,"label":"Health&buty"},
@@ -18,8 +20,8 @@
          {"id":14,"parentId":11,"label":"Unisex"},
             {"id":15,"parentId":14,"label":"Soup",
             "items": [
-                {"id":16,"parentId":15,"label":"Safeguard"},
-                {"id":17,"parentId":15,"label":"Fresh Juice"}
+                {"id":16,"parentId":15,"label":"Ordinary soap"},
+                {"id":17,"parentId":15,"label":"Liquid soap"}
             ]
         },
             {"id":18,"parentId":14,"label":"Soup2",

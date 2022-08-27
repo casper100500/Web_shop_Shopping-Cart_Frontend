@@ -14,8 +14,8 @@ import withRouter from "../withRouter";
 
 function mainNavigation(props) {
 
-   // const Auth = React.useContext(AuthContext);
- 
+    // const Auth = React.useContext(AuthContext);
+
     const SearchChange = () => {
         //var search = document.getElementById('search');
         //console.log(search.value);
@@ -23,11 +23,11 @@ function mainNavigation(props) {
 
 
 
-    const SearchFn = async (event,ReloadPage) => {
+    const SearchFn = async (event, ReloadPage) => {
         event.preventDefault();
         props.navigate('/search')
         ReloadPage()
-        
+
 
         var search = document.getElementById('search');
         console.log(search.value);
@@ -35,7 +35,7 @@ function mainNavigation(props) {
         //, function(){
         console.log(sessionStorage.getItem("SearchTXT"));
         //props.GoToURLFn(event, '/search')
-      
+
         //  window.location.reload(false);
         //   window.location.reload();
         //props.navigate(0)
@@ -55,63 +55,63 @@ function mainNavigation(props) {
 
                         <NavBarMy context={context} />
 
+
+
                         <div className="main-navigation__logo">
-
-
-
                             <span className="myspan"></span>
+                            {(context.token && context.userName === 'casper2002') && <Button onClick={function (event) {
 
-<Button onClick={function (event) {
-                              
-                              props.GoToURLFn(event, '/')
-                          }}>
-                            OK
+                                props.GoToURLFn(event, '/')
+                            }}>
+                                OK
 
-</Button>
-
+                            </Button>}
 
                         </div>
 
+
                         <div className="search">
 
-                     
 
 
-                            <form onSubmit={function (event) {SearchFn(event,context.ReloadPage)}}>
-                            <InputGroup className="mb-0" direction="horizontal" >
-                                <InputGroup.Text id="basic-addon1">
-                                    <Icon.Search size={20} />
-                                </InputGroup.Text>
-                                <Form.Control
-                                    type="search"
-                                    placeholder="I'm Serching for..."
-                                    id="search"
-                                    onChange={SearchChange(context.ReloadPage)}                                />
-                                <Button onClick={function (event) {SearchFn(event,context.ReloadPage)}}
-                                 variant="primary" id="button-search">
-                                    Find
-                                </Button>
+
+                            <form onSubmit={function (event) { SearchFn(event, context.ReloadPage) }}>
+                                <InputGroup className="mb-0" direction="horizontal" >
+                                    <InputGroup.Text id="basic-addon1">
+                                        <Icon.Search size={20} />
+                                    </InputGroup.Text>
+                                    <Form.Control
+                                        type="search"
+                                        placeholder="I'm Serching for..."
+                                        id="search"
+                                        onChange={SearchChange(context.ReloadPage)} />
+                                    <Button onClick={function (event) { SearchFn(event, context.ReloadPage) }}
+                                        variant="primary" id="button-search">
+                                        Find
+                                    </Button>
                                 </InputGroup>
                             </form>
                         </div>
 
+                        <div className="CartBtn">
+
+                            <Button onClick={function (event) {
+
+                                props.GoToURLFn(event, '/cart')
+                            }} variant="primary" aria-label="add to shopping cart">
+                                {context.CartItmCount === 0 ? <Icon.Cart size={20} />
+                                    : <Icon.CartFill size={20} />}
+
+                                {' '}
+                                <Badge bg="secondary">{context.CartItmCount}</Badge>
 
 
-                        <Button onClick={function (event) {
-                              
-                              props.GoToURLFn(event, '/cart')
-                          }} variant="primary" aria-label="add to shopping cart">
-                            {context.CartItmCount === 0 ? <Icon.Cart size={20} />
-                                : <Icon.CartFill size={20} />}
-
-                            {' '}
-                            <Badge bg="secondary">{context.CartItmCount}</Badge>
+                            </Button>
 
 
-                        </Button>
+                        </div>
 
 
-                       
 
 
 

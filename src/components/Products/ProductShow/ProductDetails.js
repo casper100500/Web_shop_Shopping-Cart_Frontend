@@ -37,7 +37,7 @@ const ProductShow = (props) => {
           {catalog.pathArr.map(itm => {
             return (
               <React.Fragment>
-                {' > '} <Link to="" 
+                <Icon.ArrowRight size={20} /> <Link to="" 
                 onClick={(e) => { 
                   searchCatalog(e, itm.id) 
                   props.GoToURLFn(e, '/')
@@ -56,7 +56,16 @@ const ProductShow = (props) => {
         </h1>
         
         <ul></ul>
-        <img width="150" height="150" src={props.product.imagePath} alt="..." class="img-responsive" />
+
+        <center>
+          <div className='divMax'>
+             <img  className='imgMax' src={props.product.imagePath} />
+          
+            </div>
+          </center>
+
+
+      
         <div className='smallID'>
           ({shortID})
         </div>
