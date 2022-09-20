@@ -42,7 +42,7 @@ class SignUPPage extends Component {
     let requestBody = {
       query: `
         mutation {
-          createUser(userInput: {email: "${email}", password: "${password}"}) {
+          createUser(email: "${email}", password: "${password}") {
             _id
             email
           }
