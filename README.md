@@ -1,4 +1,4 @@
-# Web shop template 'Shopping-Cart' (Backend). NodeJS+ReactJS+MongoDB+GraphQL.
+# Web shop template 'Shopping-Cart' (Frontend). NodeJS+ReactJS+MongoDB+GraphQL.
 
 This code belongs to Mykola GORBAN.
 
@@ -18,28 +18,26 @@ Main futures:
 - Stripe payments
 - Admin mode (add/edit products)
 
+# Used modules (main list):
+- react
+- react-router-dom
+- react-alert
+- react-bootstrap
+- react-bootstrap-icons
+- @naisutech/react-tree
+- @stripe
+
 # Usage
-Install all dependencies
+- Install all dependencies
+
 ```sh
 npm install
 ```
 
-Create and configure your nodemon.json file:
-```
-{
-    "env":
-    { 
-    "MONGO_DB": "dbname",
-    "MONGO_USER":"username",
-    "MONGO_PASSWORD":"password",
-    "jwtPassword":"somesupersecretkey",
-    "expressPort":"5000"
+- Configure your nodemon.json file
 
-    }
-}
-```
+- Run the Frontend server
 
-Run the server
 ```sh
 npm start
 ```
